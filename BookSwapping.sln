@@ -1,0 +1,79 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30621.155
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{F7DAB3C3-996A-49EC-9239-E981F860BC44}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{9F597265-3D74-4D08-A864-AAF1A14688E3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{32C3B947-6E2A-4D7F-9410-663F0BBAB51B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{F7226B24-D2EE-4F29-BAF1-53D6871846B2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5014B16A-39CA-4247-A469-E92602F7DC83}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookSwapping.Models.InputModels", "Models\BookSwapping.Models.InputModels\BookSwapping.Models.InputModels.csproj", "{F2C332DF-D5C8-4A87-83F5-11469484F786}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookSwapping.Models.ViewModels", "Models\BookSwapping.Models.ViewModels\BookSwapping.Models.ViewModels.csproj", "{0CFE91F0-8842-4BA7-9D25-4114DA3BE247}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookSwapping.Data.Models", "Data\BookSwapping.Data.Models\BookSwapping.Data.Models.csproj", "{0566B280-6C90-45F6-9D6B-3ADAC2554417}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookSwapping.Services", "Services\BookSwapping.Services\BookSwapping.Services.csproj", "{E2FD87E0-B694-4302-B362-0415DD02C041}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookSwapping.Web", "Web\BookSwapping.Web\BookSwapping.Web.csproj", "{7BEDC507-F33A-45AF-A763-6CAB066BC60E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookSwapping.Common", "BookSwapping.Common\BookSwapping.Common.csproj", "{E9C90BCD-FED8-417A-BE4E-DB5D550C2299}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookSwapping.Data", "Data\BookSwapping.Data\BookSwapping.Data.csproj", "{D3AAC413-3F8D-4C39-9411-629EDFFE7DC5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F2C332DF-D5C8-4A87-83F5-11469484F786}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2C332DF-D5C8-4A87-83F5-11469484F786}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2C332DF-D5C8-4A87-83F5-11469484F786}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2C332DF-D5C8-4A87-83F5-11469484F786}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CFE91F0-8842-4BA7-9D25-4114DA3BE247}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CFE91F0-8842-4BA7-9D25-4114DA3BE247}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CFE91F0-8842-4BA7-9D25-4114DA3BE247}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CFE91F0-8842-4BA7-9D25-4114DA3BE247}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0566B280-6C90-45F6-9D6B-3ADAC2554417}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0566B280-6C90-45F6-9D6B-3ADAC2554417}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0566B280-6C90-45F6-9D6B-3ADAC2554417}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0566B280-6C90-45F6-9D6B-3ADAC2554417}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2FD87E0-B694-4302-B362-0415DD02C041}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2FD87E0-B694-4302-B362-0415DD02C041}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2FD87E0-B694-4302-B362-0415DD02C041}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2FD87E0-B694-4302-B362-0415DD02C041}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BEDC507-F33A-45AF-A763-6CAB066BC60E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BEDC507-F33A-45AF-A763-6CAB066BC60E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BEDC507-F33A-45AF-A763-6CAB066BC60E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BEDC507-F33A-45AF-A763-6CAB066BC60E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9C90BCD-FED8-417A-BE4E-DB5D550C2299}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9C90BCD-FED8-417A-BE4E-DB5D550C2299}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9C90BCD-FED8-417A-BE4E-DB5D550C2299}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9C90BCD-FED8-417A-BE4E-DB5D550C2299}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3AAC413-3F8D-4C39-9411-629EDFFE7DC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3AAC413-3F8D-4C39-9411-629EDFFE7DC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3AAC413-3F8D-4C39-9411-629EDFFE7DC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3AAC413-3F8D-4C39-9411-629EDFFE7DC5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F2C332DF-D5C8-4A87-83F5-11469484F786} = {F7226B24-D2EE-4F29-BAF1-53D6871846B2}
+		{0CFE91F0-8842-4BA7-9D25-4114DA3BE247} = {F7226B24-D2EE-4F29-BAF1-53D6871846B2}
+		{0566B280-6C90-45F6-9D6B-3ADAC2554417} = {32C3B947-6E2A-4D7F-9410-663F0BBAB51B}
+		{E2FD87E0-B694-4302-B362-0415DD02C041} = {9F597265-3D74-4D08-A864-AAF1A14688E3}
+		{7BEDC507-F33A-45AF-A763-6CAB066BC60E} = {F7DAB3C3-996A-49EC-9239-E981F860BC44}
+		{D3AAC413-3F8D-4C39-9411-629EDFFE7DC5} = {32C3B947-6E2A-4D7F-9410-663F0BBAB51B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7CD7ED29-6D80-4868-A34B-8DB9A05E9D43}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,49 @@
+﻿@model ICollection<BookSwapping.Data.Models.Book>
+@{
+    ViewData["Title"] = "MyBook";
+    
+}
+
+
+<div class="container">
+    <p>
+        Добави нова книга
+        <a asp-action="CreateBook" asp-controller="Book" class="btn btn-primary btn-sm">
+            Добави
+        </a>
+    </p>
+
+    <table class="table">
+        <tr>
+            <th>Book Name</th>
+            <th>Description</th>
+            <th>Author</th>
+            <th>Author</th>
+            <th>Genre</th>
+            <th>Genre Description</th>
+            <th>Image</th>
+        </tr>
+
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.BookCover.BookName</td>
+                <td>@book.BookCover.Description</td>
+                <td>@book.Author.Name</td>
+                <td>@book.Author.Biography</td>
+                <td>@book.Genre.TypeGenre</td>
+                <td>@book.Genre.Description</td>
+
+                @{ 
+                    var img = String.Format("data:image/png;base64,{0}", Convert.ToBase64String(book.BookCover.ImageContent));
+                }
+                <td><img src="@img"/></td>
+            </tr>
+        }
+    </table>
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
