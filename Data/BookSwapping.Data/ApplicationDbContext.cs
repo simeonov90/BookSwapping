@@ -18,6 +18,7 @@
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Book> Books { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<Library> Libraries { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {           
@@ -36,11 +37,19 @@
                 .HasMany(u => u.Books)
                 .WithOne(u => u.User)
                 .IsRequired();
+            
+                
+                
             //one to one
             builder.Entity<BookCover>()
                 .HasOne(b => b.Books)
                 .WithOne(b => b.BookCover)
                 .HasForeignKey<Book>(b => b.BookCoverId);
+
+            builder.Entity<Book>()
+                .HasOne(x => x.Libraries)
+                .WithOne(x => x.Book)
+                .HasForeignKey<Library>(x => x.BookId);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace BookSwapping.Models.InputModels.Book
 {
-    public class GetAllMyBookInputModel
+    public class GetAllFromUserBookInputModel
     {
         public string UserId { get; set; }
     }

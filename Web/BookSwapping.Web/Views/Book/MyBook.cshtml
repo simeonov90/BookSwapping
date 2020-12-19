@@ -1,47 +1,60 @@
 ﻿@model ICollection<BookSwapping.Data.Models.Book>
 @{
     ViewData["Title"] = "MyBook";
-    
+
 }
 
 
 <div class="container">
+
     <p>
         Добави нова книга
-        <a asp-action="CreateBook" asp-controller="Book" class="btn btn-primary btn-sm">
+        <a asp-action="CreateBook" asp-controller="Book"  class="btn btn-primary btn-sm">
             Добави
         </a>
     </p>
+    
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-image">
+                <thead>
+                    <tr>
+                        <th scope="col">Изображение за корица</th>
+                        <th scope="col">Заглавие</th>
+                        <th scope="col">Кратко резюме</th>
+                        <th scope="col">Автор</th>
+                        <th scope="col">Биография</th>
+                        <th scope="col">Жанр</th>
+                        <th scope="col">Описание на жанра</th>
+                        <th scope="col">Сподели</th>
 
-    <table class="table">
-        <tr>
-            <th>Book Name</th>
-            <th>Description</th>
-            <th>Author</th>
-            <th>Author</th>
-            <th>Genre</th>
-            <th>Genre Description</th>
-            <th>Image</th>
-        </tr>
+                    </tr>
+                </thead>
 
-        @foreach (var book in Model)
-        {
-            <tr>
-                <td>@book.BookCover.BookName</td>
-                <td>@book.BookCover.Description</td>
-                <td>@book.Author.Name</td>
-                <td>@book.Author.Biography</td>
-                <td>@book.Genre.TypeGenre</td>
-                <td>@book.Genre.Description</td>
+                <tbody>
+                    @foreach (var book in Model)
+                    {
+                        <tr>
+                            <td class="w-25">
+                                @{
+                                    var img = String.Format("data:image/png;base64,{0}", Convert.ToBase64String(book.BookCover.ImageContent));
+                                }
+                                <img src="@img" />
+                            </td>
+                            <td>@book.BookCover.BookName</td>
+                            <td>@book.BookCover.Description</td>
+                            <td>@book.Author.Name</td>
+                            <td>@book.Author.Biography</td>
+                            <td>@book.Genre.TypeGenre</td>
+                            <td>@book.Genre.Description</td>
+                            <td><a asp-action="ShareBookToLibrary" asp-controller="Book" asp-route-id="@book.Id" class="btn btn-primary btn-sm"> Сподели </a></td>
+                        </tr>
+                    }
+                </tbody>
 
-                @{ 
-                    var img = String.Format("data:image/png;base64,{0}", Convert.ToBase64String(book.BookCover.ImageContent));
-                }
-                <td><img src="@img"/></td>
-            </tr>
-        }
-    </table>
-
+            </table>
+        </div>
+    </div>
 </div>
 
 @section Scripts {

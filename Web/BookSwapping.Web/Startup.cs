@@ -58,6 +58,7 @@ namespace BookSwapping.Web
             services.AddTransient<IBookCoverService, BookCoverService>();
             services.AddTransient<IGenreService, GenreService>();
             services.AddTransient<IBookService, BookService>();
+            services.AddTransient<ILibraryService, LibraryService>();
             services.AddRazorPages();
             services.AddMvc();
         }

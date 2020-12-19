@@ -183,6 +183,27 @@ namespace BookSwapping.Data.Migrations
                     b.ToTable("Genres");
                 });
 
+            modelBuilder.Entity("BookSwapping.Data.Models.Library", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookId")
+                        .IsUnique();
+
+                    b.ToTable("Libraries");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -341,6 +362,15 @@ namespace BookSwapping.Data.Migrations
                     b.HasOne("BookSwapping.Data.Models.ApplicationUser", "User")
                         .WithMany("Books")
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BookSwapping.Data.Models.Library", b =>
+                {
+                    b.HasOne("BookSwapping.Data.Models.Book", "Book")
+                        .WithOne("Libraries")
+                        .HasForeignKey("BookSwapping.Data.Models.Library", "BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

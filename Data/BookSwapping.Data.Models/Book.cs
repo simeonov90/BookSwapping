@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace BookSwapping.Data.Models
+﻿namespace BookSwapping.Data.Models
 {
     public class Book
     {
@@ -13,5 +11,6 @@ namespace BookSwapping.Data.Models
         public virtual Author Author { get; set; }
         public string UserId { get; set; }
         public virtual ApplicationUser User { get; set; }
+        public Library Libraries { get; set; }
     }
 }

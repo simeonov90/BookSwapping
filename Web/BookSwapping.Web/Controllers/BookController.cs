@@ -7,18 +7,21 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using System;
     using System.Threading.Tasks;
 
     public class BookController : Controller
     {
         private readonly IBookService bookService;
         private readonly IGenreService genreService;
+        private readonly ILibraryService libraryService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public BookController(IBookService bookService, IGenreService genreService, UserManager<ApplicationUser> userManager)
+        public BookController(IBookService bookService, IGenreService genreService, ILibraryService libraryService, UserManager<ApplicationUser> userManager)
         {
             this.bookService = bookService;
             this.genreService = genreService;
+            this.libraryService = libraryService;
             this.userManager = userManager;
         }
 
@@ -41,18 +44,27 @@
             }
 
             book.UserId = userManager.GetUserId(HttpContext.User);
-
             await this.bookService.CreateBook(book);
 
             return RedirectToAction("Index", "Home");
         }
 
-        [Authorize]
-        public IActionResult MyBook(GetAllMyBookInputModel getAllBook)
+        [AllowAnonymous]
+        public IActionResult MyBook(GetAllFromUserBookInputModel getAllBook)
         {
            getAllBook.UserId = userManager.GetUserId(HttpContext.User);
             
-            return View(this.bookService.GetAllMyBookAsync(getAllBook));
+            return View(this.bookService.GetAllBooksFromUser(getAllBook));
+        }
+
+        [Route("ShareBookToLibrary")]
+        public async Task<IActionResult> ShareBookToLibrary(int id)
+        {
+            var date = DateTime.UtcNow;
+            var onlyDate = date.Date;
+            await this.libraryService.ShareBookToLibrary(id, onlyDate);
+
+            return RedirectToAction("Index", "Home");
         }
 
     }
