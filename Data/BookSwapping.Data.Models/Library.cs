@@ -6,8 +6,11 @@
     {
         public int Id { get; set; }
 
+        [Required]
         [DataType(DataType.Date)]
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
+
+        [Required]
         public int BookId { get; set; }
         public virtual Book Book { get; set; }
     }

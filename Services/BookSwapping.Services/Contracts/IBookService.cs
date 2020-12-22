@@ -7,7 +7,6 @@
     public interface IBookService
     {
         Task CreateBook(CreateBookInputModel create);
-        ICollection<Book> GetAllBooksFromUser(GetAllFromUserBookInputModel getAllBook);
-        ICollection<Book> GetAllBooksCoverAndAuthor();
+        Task<ICollection<Book>> GetAllBooksFromUser(GetAllFromUserBookInputModel getAllBook);
     }
 }

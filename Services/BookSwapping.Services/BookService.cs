@@ -58,24 +58,14 @@
 
         }
 
-        public ICollection<Book> GetAllBooksCoverAndAuthor()
+        public async Task<ICollection<Book>> GetAllBooksFromUser(GetAllFromUserBookInputModel getAllBook)
         {
-            var book = db.Books.Include(x => x.BookCover).Select(x => new
-            {
-                x.BookCover.BookName,
-                x.BookCover.ImageContent
-            }).ToList();
-            return (ICollection<Book>)book;
-        }
-
-        public ICollection<Book> GetAllBooksFromUser(GetAllFromUserBookInputModel getAllBook)
-        {
-            var book = db.Books.Where(x => x.UserId == getAllBook.UserId)
+            var book = await db.Books.Where(x => x.UserId == getAllBook.UserId)
                 .Include(c => c.BookCover)
                 .Include(c => c.Author)
                 .Include(c => c.Genre)
                 .AsNoTracking()
-                .ToList();
+                .ToListAsync();
             return book;
         }
 

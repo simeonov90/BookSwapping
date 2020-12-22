@@ -1,6 +1,5 @@
 ﻿namespace BookSwapping.Web.Controllers
 {
-    using BookSwapping.Data;
     using BookSwapping.Data.Models;
     using BookSwapping.Models.InputModels.Book;
     using BookSwapping.Services.Contracts;
@@ -26,10 +25,10 @@
         }
 
         [Authorize]
-        public IActionResult CreateBook()
+        public async Task<IActionResult> CreateBook()
         {
             var viewModel = new CreateBookInputModel();
-            viewModel.Genre = this.genreService.GetAllGenre();
+            viewModel.Genre = await this.genreService.GetAllGenre();
             return View(viewModel);
         }
 
@@ -39,7 +38,7 @@
         {
             if (!ModelState.IsValid)
             {
-                book.Genre = this.genreService.GetAllGenre();
+                book.Genre = await  this.genreService.GetAllGenre();
                 return View(book);
             }
 
@@ -50,18 +49,20 @@
         }
 
         [AllowAnonymous]
-        public IActionResult MyBook(GetAllFromUserBookInputModel getAllBook)
+        public async Task<IActionResult> MyBook(GetAllFromUserBookInputModel getAllBook)
         {
            getAllBook.UserId = userManager.GetUserId(HttpContext.User);
             
-            return View(this.bookService.GetAllBooksFromUser(getAllBook));
+            return View(await this.bookService.GetAllBooksFromUser(getAllBook));
         }
 
         [Route("ShareBookToLibrary")]
+        [Authorize]
         public async Task<IActionResult> ShareBookToLibrary(int id)
-        {
+        {      
             var date = DateTime.UtcNow;
-            var onlyDate = date.Date;
+            var onlyDate = date.Date.ToString("dd/MM/yyyy");
+
             await this.libraryService.ShareBookToLibrary(id, onlyDate);
 
             return RedirectToAction("Index", "Home");

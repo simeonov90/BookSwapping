@@ -1,26 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using BookSwapping.Web.Models;
-
-namespace BookSwapping.Web.Controllers
+﻿namespace BookSwapping.Web.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
+    using BookSwapping.Web.Models;
+    using BookSwapping.Services.Contracts;
+    using BookSwapping.Models.ViewModels.Home;
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ILibraryService libraryService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ILibraryService libraryService)
         {
             _logger = logger;
+            this.libraryService = libraryService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            return View(await this.libraryService.LastReceivedBooksToLibrary());
         }
 
         public IActionResult Privacy()

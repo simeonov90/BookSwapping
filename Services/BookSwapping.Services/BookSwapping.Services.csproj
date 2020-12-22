@@ -12,6 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\BookSwapping.Data\BookSwapping.Data.csproj" />
     <ProjectReference Include="..\..\Models\BookSwapping.Models.InputModels\BookSwapping.Models.InputModels.csproj" />
+    <ProjectReference Include="..\..\Models\BookSwapping.Models.ViewModels\BookSwapping.Models.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

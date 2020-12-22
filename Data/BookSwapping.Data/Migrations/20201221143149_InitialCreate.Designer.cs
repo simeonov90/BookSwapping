@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookSwapping.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201218213847_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20201221143149_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -195,8 +195,9 @@ namespace BookSwapping.Data.Migrations
                     b.Property<int>("BookId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Date")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

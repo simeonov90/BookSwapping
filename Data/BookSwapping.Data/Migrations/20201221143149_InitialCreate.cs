@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BookSwapping.Data.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -241,7 +241,7 @@ namespace BookSwapping.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Date = table.Column<DateTime>(nullable: false),
+                    Date = table.Column<string>(nullable: false),
                     BookId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

@@ -1,9 +1,14 @@
 ﻿namespace BookSwapping.Services.Contracts
 {
-    using System;
+    using BookSwapping.Data.Models;
+    using BookSwapping.Models.ViewModels.Home;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     public interface ILibraryService
     {
-        Task ShareBookToLibrary(int bookId, DateTime date);
+        Task ShareBookToLibrary(int bookId, string date);
+        Task<ICollection<Library>> GetAllBookFromLibrary();
+        int CountOfBooksInLibrary();
+        Task<ICollection<Library>> LastReceivedBooksToLibrary();
     }
 }

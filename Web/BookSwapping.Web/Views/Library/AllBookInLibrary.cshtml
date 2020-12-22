@@ -1,0 +1,45 @@
+﻿@using BookSwapping.Services.Contracts
+@model ICollection<BookSwapping.Data.Models.Library>
+@inject ILibraryService LibraryService
+@{
+    ViewData["Title"] = "Library";
+}
+
+<h1>Library</h1>
+
+<div class="row">
+    <div class="col-12">
+        <table class="table table-image">
+            <thead>
+                <tr>
+                    <th scope="col">Изображение за корица</th>
+                    <th scope="col">Заглавие</th>
+                    <th scope="col">Автор</th>
+                    <th scope="col">Жанр</th>
+                    <th scope="col">Потребител</th>
+                    <th scope="col">Качена на </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var book in Model)
+                {
+                <tr>
+                    <td class="w-25">
+                        @{
+                            var img = String.Format("data:image/png;base64,{0}", Convert.ToBase64String(book.Book.BookCover.ImageContent));
+                        }
+                        <img src="@img" />
+                    </td>
+                    <td>@book.Book.BookCover.BookName</td>
+                    <td>@book.Book.Author.Name</td>
+                    <td>@book.Book.Genre.TypeGenre</td>
+                    <td>@book.Book.User.UserName</td>
+                    <td>@book.Date</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+        <span>@LibraryService.CountOfBooksInLibrary()</span>
+    </div>
+</div>
