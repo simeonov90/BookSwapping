@@ -49,6 +49,7 @@
                 .Include(x => x.Book).ThenInclude(u => u.User)
                 .OrderByDescending(x => x.Id)
                 .Take(10)
+                .AsNoTracking()
                 .ToListAsync();
             
             return await lastReceivedBooks;
