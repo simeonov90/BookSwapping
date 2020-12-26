@@ -34,7 +34,7 @@
 
             var memoryStream = new MemoryStream();
             var image = SixLabors.ImageSharp.Image.Load(create.FormFile.OpenReadStream());
-            image.Mutate(x => x.Resize(240, 240));
+            image.Mutate(x => x.Resize(200, 240));
             await image.SaveAsPngAsync(memoryStream);
 
             await this.bookCoverService.CreateBookCoverAsync(create.BookName, memoryStream.ToArray(), create.Description);

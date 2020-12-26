@@ -45,7 +45,7 @@
             book.UserId = userManager.GetUserId(HttpContext.User);
             await this.bookService.CreateBook(book);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("MyBook");
         }
 
         [AllowAnonymous]
@@ -65,7 +65,7 @@
 
             await this.libraryService.ShareBookToLibrary(id, onlyDate);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("MyBook");
         }
 
     }
