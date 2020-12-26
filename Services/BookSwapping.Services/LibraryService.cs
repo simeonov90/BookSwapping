@@ -47,6 +47,8 @@
                 .Include(x => x.Book).ThenInclude(c => c.BookCover)
                 .Include(x => x.Book).ThenInclude(a => a.Author)
                 .Include(x => x.Book).ThenInclude(u => u.User)
+                .OrderByDescending(x => x.Id)
+                .Take(10)
                 .ToListAsync();
             
             return await lastReceivedBooks;

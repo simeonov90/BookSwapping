@@ -9,33 +9,33 @@
     <div class="text-center">
         <h4 class="text-danger">@LibraryService.CountOfBooksInLibrary() <a asp-action="AllBookInLibrary" asp-controller="Library" class="nav-link text-info d-inline">Налични книги</a></h4>
     </div>
-</div>
 
-<table class="table table">
-    <thead>
-        <tr>
-            <th scope="col">Изображение за корица</th>
-            <th scope="col">Заглавие</th>
-            <th scope="col">Автор</th>
-            <th scope="col">Потребител</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        @foreach (var book in Model)
-        {
+    <h4>Последно добавени книги</h4>
+    <table class="table table">
+        <thead>
             <tr>
-                <td class="w-25">
-                    @{
-                        var img = String.Format("data:image/png;base64,{0}", Convert.ToBase64String(book.Book.BookCover.ImageContent));
-                    }
-                    <img src="@img" />
-                </td>
-                <td>@book.Book.BookCover.BookName</td>
-                <td>@book.Book.Author.Name</td>
-                <td>@book.Book.User</td>
+                <th scope="col">Изображение за корица</th>
+                <th scope="col">Заглавие</th>
+                <th scope="col">Автор</th>
+                <th scope="col">Потребител</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
 
+        <tbody>
+            @foreach (var book in Model)
+            {
+                <tr>
+                    <td class="w-25">
+                        @{
+                            var img = String.Format("data:image/png;base64,{0}", Convert.ToBase64String(book.Book.BookCover.ImageContent));
+                        }
+                        <img src="@img" />
+                    </td>
+                    <td>@book.Book.BookCover.BookName</td>
+                    <td>@book.Book.Author.Name</td>
+                    <td>@book.Book.User</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
