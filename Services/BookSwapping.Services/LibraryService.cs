@@ -25,6 +25,17 @@
             return db.Libraries.ToList().Count();            
         }
 
+        public async Task DeleteBookFromLibrary(int id)
+        {
+            var deleteFromLibrary = db.Libraries.Select(x => x.Id == id).FirstOrDefaultAsync();
+            if (deleteFromLibrary != null)
+            {
+                var library = db.Libraries.First(x => x.Id == id);
+                this.db.Libraries.Remove(library);
+                await this.db.SaveChangesAsync();
+            }
+        }
+
         public async Task<ICollection<Library>> GetAllBookFromLibrary()
         {
 
@@ -60,7 +71,8 @@
             var library = new Library
             {
                 BookId = bookId,
-                Date = date
+                Date = date,
+                
             };
 
             if (!db.Libraries.Select(x => x.BookId).Contains(bookId))
