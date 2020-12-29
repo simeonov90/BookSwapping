@@ -11,7 +11,6 @@
         public virtual Author Author { get; set; }
         public string UserId { get; set; }
         public virtual ApplicationUser User { get; set; }
-        public int LibraryId { get; set; }
         public Library Libraries { get; set; }
     }
 }

@@ -204,8 +204,7 @@ namespace BookSwapping.Data.Migrations
                     BookCoverId = table.Column<int>(nullable: false),
                     GenreId = table.Column<int>(nullable: false),
                     AuthorId = table.Column<int>(nullable: false),
-                    UserId = table.Column<string>(nullable: false),
-                    LibraryId = table.Column<int>(nullable: false)
+                    UserId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {

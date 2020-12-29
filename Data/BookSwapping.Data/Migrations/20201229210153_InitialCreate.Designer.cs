@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookSwapping.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201227210938_InitialCreate")]
+    [Migration("20201229210153_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -120,9 +120,6 @@ namespace BookSwapping.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("GenreId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LibraryId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
