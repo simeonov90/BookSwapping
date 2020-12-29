@@ -7,7 +7,8 @@
     public interface ILibraryService
     {
         Task ShareBookToLibrary(int bookId, string date);
-        Task DeleteBookFromLibrary(int id);
+        Task CancelShareBookFromLibrary(int id);
+        Task<int> IsBookShared(int id);
         Task<ICollection<Library>> GetAllBookFromLibrary();
         int CountOfBooksInLibrary();
         Task<ICollection<Library>> LastReceivedBooksToLibrary();

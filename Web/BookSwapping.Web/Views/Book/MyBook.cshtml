@@ -1,4 +1,6 @@
 ﻿@model ICollection<BookSwapping.Data.Models.Book>
+@using BookSwapping.Services.Contracts
+@inject ILibraryService LibraryService
 @{
     ViewData["Title"] = "MyBook";
 
@@ -47,7 +49,18 @@
                             <td>@book.Author.Biography</td>
                             <td>@book.Genre.TypeGenre</td>
                             <td>@book.Genre.Description</td>
-                            <td><a asp-action="ShareBookToLibrary" asp-controller="Book" asp-route-id="@book.Id" class="btn btn-primary btn-sm"> Сподели </a></td>
+                            <td>
+                                @{
+                                    if (await LibraryService.IsBookShared(book.Id) != 0)
+                                    {
+                                        <a asp-action="CancelShareBookFromLibrary" asp-controller="Book" asp-route-id="@book.Id" class="btn btn-warning"> Отказ </a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-action="ShareBookToLibrary" asp-controller="Book" asp-route-id="@book.Id" class="btn btn-primary btn-sm"> Сподели </a>
+                                    }
+                                }
+                            </td>
                         </tr>
                     }
                 </tbody>

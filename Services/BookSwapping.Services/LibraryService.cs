@@ -2,11 +2,9 @@
 {
     using BookSwapping.Data;
     using BookSwapping.Data.Models;
-    using BookSwapping.Models.ViewModels.Home;
     using BookSwapping.Services.Contracts;
     using Microsoft.EntityFrameworkCore;
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -25,15 +23,11 @@
             return db.Libraries.ToList().Count();            
         }
 
-        public async Task DeleteBookFromLibrary(int id)
-        {
-            var deleteFromLibrary = db.Libraries.Select(x => x.Id == id).FirstOrDefaultAsync();
-            if (deleteFromLibrary != null)
-            {
-                var library = db.Libraries.First(x => x.Id == id);
+        public async Task CancelShareBookFromLibrary(int id)
+        {          
+                var library = await db.Libraries.Where(x => x.BookId == id).FirstOrDefaultAsync();
                 this.db.Libraries.Remove(library);
                 await this.db.SaveChangesAsync();
-            }
         }
 
         public async Task<ICollection<Library>> GetAllBookFromLibrary()
@@ -83,7 +77,10 @@
 
         }
 
-
-
+        public async Task<int> IsBookShared(int id)
+        {
+            var isExist = db.Libraries.Where(x => x.BookId == id).Select(x => x.Id).FirstOrDefaultAsync();
+            return await isExist;
+        }
     }
 }

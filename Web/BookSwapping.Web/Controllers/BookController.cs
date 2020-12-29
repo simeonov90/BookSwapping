@@ -68,5 +68,14 @@
             return RedirectToAction("MyBook");
         }
 
+        [Route("CancelShareBookFromLibrary")]
+        [Authorize]
+        public async Task<IActionResult> CancelShareBookFromLibrary(int id)
+        {
+            await this.libraryService.CancelShareBookFromLibrary(id);
+
+            return RedirectToAction("MyBook");
+        }
+
     }
 }
