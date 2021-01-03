@@ -25,9 +25,7 @@
                         <th scope="col">Заглавие</th>
                         <th scope="col">Кратко резюме</th>
                         <th scope="col">Автор</th>
-                        <th scope="col">Биография</th>
                         <th scope="col">Жанр</th>
-                        <th scope="col">Описание на жанра</th>
                         <th scope="col">Сподели</th>
 
                     </tr>
@@ -46,9 +44,7 @@
                             <td>@book.BookCover.BookName</td>
                             <td>@book.BookCover.Description</td>
                             <td>@book.Author.Name</td>
-                            <td>@book.Author.Biography</td>
                             <td>@book.Genre.TypeGenre</td>
-                            <td>@book.Genre.Description</td>
                             <td>
                                 @{
                                     if (await LibraryService.IsBookShared(book.Id) != 0)
