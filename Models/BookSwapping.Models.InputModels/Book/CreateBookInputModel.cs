@@ -14,6 +14,8 @@
         public string BookName { get; set; }
 
         [Required(ErrorMessage = ErrorMesseges.RequiredField)]
+        [MinLength(GlobalConstants.AuthorMinLength, ErrorMessage = ErrorMesseges.AuthorMinLength)]
+        [MaxLength(GlobalConstants.AuthorMaxLength, ErrorMessage = ErrorMesseges.AuthorMaxLength)]
         [Display(Name = "Автор")]
         public string Author { get; set; }
 
@@ -29,6 +31,8 @@
         public string UserId { get; set; }
 
         [Display(Name = "Описание")]
+        [Required(ErrorMessage = ErrorMesseges.RequiredField)]
+        [StringLength(GlobalConstants.BookDescriptionMaxLength, ErrorMessage = ErrorMesseges.BookDescriptionMaxLength)]
         public string Description { get; set; }
 
     }

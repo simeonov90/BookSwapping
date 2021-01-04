@@ -52,7 +52,7 @@ namespace BookSwapping.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(maxLength: 25, nullable: false),
+                    Name = table.Column<string>(maxLength: 40, nullable: false),
                     Biography = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -68,7 +68,7 @@ namespace BookSwapping.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BookName = table.Column<string>(maxLength: 30, nullable: false),
                     ImageContent = table.Column<byte[]>(nullable: false),
-                    Description = table.Column<string>(maxLength: 200, nullable: true)
+                    Description = table.Column<string>(maxLength: 1000, nullable: true)
                 },
                 constraints: table =>
                 {
