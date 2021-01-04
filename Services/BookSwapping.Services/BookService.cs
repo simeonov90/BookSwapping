@@ -68,6 +68,17 @@
                 .ToListAsync();
             return book;
         }
+        public async Task<ICollection<Book>> BookDetails(int id)
+        {
+            var book = await db.Books.Where(x => x.Id == id)
+                .Include(x => x.BookCover)
+                .Include(x => x.Author)
+                .Include(x => x.Genre)
+                .AsNoTracking()
+                .ToListAsync();
+            
+            return book;
+        }
 
     }
 }

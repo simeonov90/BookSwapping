@@ -55,8 +55,12 @@
             
             return View(await this.bookService.GetAllBooksFromUser(getAllBook));
         }
+        [Authorize]
+        public async Task<IActionResult> BookDetails(int id)
+        {
+           return View(await this.bookService.BookDetails(id));            
+        }
 
-        [Route("ShareBookToLibrary")]
         [Authorize]
         public async Task<IActionResult> ShareBookToLibrary(int id)
         {      
@@ -68,7 +72,6 @@
             return RedirectToAction("MyBook");
         }
 
-        [Route("CancelShareBookFromLibrary")]
         [Authorize]
         public async Task<IActionResult> CancelShareBookFromLibrary(int id)
         {

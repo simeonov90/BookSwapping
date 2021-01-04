@@ -1,0 +1,25 @@
+﻿@model ICollection<BookSwapping.Data.Models.Book>
+@{
+    ViewData["Title"] = "Book Details";
+}
+<div class="container h-100 d-flex justify-content-start">
+    @foreach (var b in Model)
+    {
+        var img = String.Format("data:image/png;base64,{0}", Convert.ToBase64String(b.BookCover.ImageContent));
+        <div class="card-deck">
+            <div class="row">
+                <div class="col-auto">
+                    <img src=@img class="img-fluid img-thumbnail" alt="@b.BookCover.BookName" style="width: 250px;">
+                </div>
+                <div class="col">
+                    <div class="card-block">
+                        <h2 class="card-title">@b.BookCover.BookName</h2>
+                        <h6 class="card-subtitle mt-2">Автор: <a asp-action="" asp-controller="" class="text-primary text-decoration-none">@b.Author.Name</a></h6>
+                        <h6 class="card-subtitle mt-2">Жанр: <a asp-action="" asp-controller="" class="text-primary text-decoration-none">@b.Genre.TypeGenre</a></h6>
+                        <h6 class="card-text mt-4">@b.BookCover.Description</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

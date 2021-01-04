@@ -8,5 +8,6 @@
     {
         Task CreateBook(CreateBookInputModel create);
         Task<ICollection<Book>> GetAllBooksFromUser(GetAllFromUserBookInputModel getAllBook);
+        Task<ICollection<Book>> BookDetails(int id);
     }
 }
