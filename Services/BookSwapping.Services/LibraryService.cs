@@ -53,7 +53,7 @@
                 .Include(x => x.Book).ThenInclude(a => a.Author)
                 .Include(x => x.Book).ThenInclude(u => u.User)
                 .OrderByDescending(x => x.Id)
-                .Take(10)
+                .Take(5)
                 .AsNoTracking()
                 .ToListAsync();
             
