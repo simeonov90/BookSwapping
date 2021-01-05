@@ -16,9 +16,29 @@
                 </div>
                 <div class="col">
                     <div class="card-body">
-                        <h5 class="card-title"><a asp-action="BookDetails" asp-controller="Book" asp-route-id="@b.Book.Id" class="text-danger text-decoration-none">@b.Book.BookCover.BookName</a></h5>
-                        <h6 class="card-subtitle mt-2">Автор: <a asp-action="" asp-controller="" class="text-primary text-decoration-none">@b.Book.Author.Name</a></h6>
-                        <h6 class="card-subtitle mt-2">Жанр: <a asp-action="" asp-controller="" class="text-primary text-decoration-none">@b.Book.Genre.TypeGenre</a></h6>
+                        <h5 class="card-title">
+                            <a asp-action="BookDetails"
+                               asp-controller="Book"
+                               asp-route-id="@b.Book.Id" class="text-danger text-decoration-none">
+                                @b.Book.BookCover.BookName
+                            </a>
+                        </h5>
+                        <h6 class="card-subtitle mt-2">
+                            Автор:
+                            <a asp-action="Author"
+                               asp-controller="Author"
+                               asp-route-id="@b.Book.AuthorId"
+                               asp-route-name="@b.Book.Author.Name" class="text-primary text-decoration-none">
+                                @b.Book.Author.Name
+                            </a>
+                        </h6>
+                        <h6 class="card-subtitle mt-2">
+                            Жанр:
+                            <a asp-action=""
+                               asp-controller="" class="text-primary text-decoration-none">
+                                @b.Book.Genre.TypeGenre
+                            </a>
+                        </h6>
                         <p class="card-subtitle mt-2">Публикувана на: @b.Date</p>
                         <p class="card-subtitle mt-2">Публикувана от: @b.Book.User.UserName</p>
                     </div>

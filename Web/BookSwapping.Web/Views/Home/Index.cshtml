@@ -31,8 +31,21 @@
                         }
                         <img src="@img" />
                     </td>
-                    <td><a asp-action="BookDetails" asp-controller="Book" asp-route-id="@book.Book.Id" class="text-decoration-none">@book.Book.BookCover.BookName</a></td>
-                    <td>@book.Book.Author.Name</td>
+                    <td>
+                        <a asp-action="BookDetails"
+                           asp-controller="Book"
+                           asp-route-id="@book.Book.Id" class="text-decoration-none">
+                            @book.Book.BookCover.BookName
+                        </a>
+                    </td>
+                    <td>
+                        <a asp-action="Author"
+                           asp-controller="Author"
+                           asp-route-id="@book.Book.AuthorId"
+                           asp-route-name="@book.Book.Author.Name" class="text-decoration-none">
+                            @book.Book.Author.Name
+                        </a>
+                    </td>
                     <td>@book.Book.User</td>
                 </tr>
             }

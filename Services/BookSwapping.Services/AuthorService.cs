@@ -2,6 +2,8 @@
 {
     using BookSwapping.Data;
     using BookSwapping.Data.Models;
+    using Microsoft.EntityFrameworkCore;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     public class AuthorService : IAuthorService
@@ -26,6 +28,16 @@
                 await this.db.SaveChangesAsync();
             }
 
+        }
+
+        public async Task<ICollection<Library>> GetAllAuthorBooks(int id)
+        {
+            var authorBooks = await db.Libraries.Where(x => x.Book.AuthorId == id)
+                .Include(x => x.Book).ThenInclude(x => x.BookCover)
+                .AsNoTracking()
+                .ToListAsync();
+
+            return authorBooks;
         }
     }
 }
