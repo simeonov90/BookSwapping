@@ -5,41 +5,25 @@
     ViewData["Title"] = "Library";
 }
 
-<h1>Library</h1>
-
-<div class="row">
-    <div class="col-12">
-        <table class="table table-image">
-            <thead>
-                <tr>
-                    <th scope="col">Изображение за корица</th>
-                    <th scope="col">Заглавие</th>
-                    <th scope="col">Автор</th>
-                    <th scope="col">Жанр</th>
-                    <th scope="col">Потребител</th>
-                    <th scope="col">Качена на </th>
-                </tr>
-            </thead>
-
-            <tbody>
-                @foreach (var book in Model)
-                {
-                <tr>
-                    <td class="w-25">
-                        @{
-                            var img = String.Format("data:image/png;base64,{0}", Convert.ToBase64String(book.Book.BookCover.ImageContent));
-                        }
-                        <img src="@img" />
-                    </td>
-                    <td>@book.Book.BookCover.BookName</td>
-                    <td>@book.Book.Author.Name</td>
-                    <td>@book.Book.Genre.TypeGenre</td>
-                    <td>@book.Book.User.UserName</td>
-                    <td>@book.Date</td>
-                </tr>
-                }
-            </tbody>
-        </table>
-        <span>@LibraryService.CountOfBooksInLibrary()</span>
-    </div>
+<div class="container d-inline-block">
+    @foreach (var b in Model)
+    {
+        var img = String.Format("data:image/png;base64,{0}", Convert.ToBase64String(b.Book.BookCover.ImageContent));
+        <div class="card-header m-2">
+            <div class="row">
+                <div class="col-auto">
+                    <img src=@img class="img-fluid img-thumbnail" alt="@b.Book.BookCover.BookName" style="width:150px;">
+                </div>
+                <div class="col">
+                    <div class="card-body">
+                        <h5 class="card-title"><a asp-action="BookDetails" asp-controller="Book" asp-route-id="@b.Book.Id" class="text-danger text-decoration-none">@b.Book.BookCover.BookName</a></h5>
+                        <h6 class="card-subtitle mt-2">Автор: <a asp-action="" asp-controller="" class="text-primary text-decoration-none">@b.Book.Author.Name</a></h6>
+                        <h6 class="card-subtitle mt-2">Жанр: <a asp-action="" asp-controller="" class="text-primary text-decoration-none">@b.Book.Genre.TypeGenre</a></h6>
+                        <p class="card-subtitle mt-2">Публикувана на: @b.Date</p>
+                        <p class="card-subtitle mt-2">Публикувана от: @b.Book.User.UserName</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 </div>
