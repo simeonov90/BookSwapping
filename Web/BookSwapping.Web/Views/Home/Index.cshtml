@@ -31,7 +31,7 @@
                         }
                         <img src="@img" />
                     </td>
-                    <td><a asp-action="BookDetails" asp-controller="Book" asp-route-id="@book.Book.Id">@book.Book.BookCover.BookName</a></td>
+                    <td><a asp-action="BookDetails" asp-controller="Book" asp-route-id="@book.Book.Id" class="text-decoration-none">@book.Book.BookCover.BookName</a></td>
                     <td>@book.Book.Author.Name</td>
                     <td>@book.Book.User</td>
                 </tr>
