@@ -74,6 +74,7 @@
                 .Include(x => x.BookCover)
                 .Include(x => x.Author)
                 .Include(x => x.Genre)
+                .Include(x => x.User)
                 .AsNoTracking()
                 .ToListAsync();
             
