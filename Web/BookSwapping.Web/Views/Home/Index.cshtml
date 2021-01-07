@@ -5,50 +5,35 @@
     ViewData["Title"] = "Index";
 }
 
-<div class="container">
-    <div class="text-center">
-        <h4 class="text-danger">@LibraryService.CountOfBooksInLibrary() <a asp-action="AllBookInLibrary" asp-controller="Library" class="nav-link text-info d-inline">Налични книги</a></h4>
+<div class="container text-center">
+    <div>
+        <h4 class="text-danger">@LibraryService.CountOfBooksInLibrary() <a asp-action="AllBookInLibrary" asp-controller="Library" class="nav-link text-primary d-inline">Налични книги</a></h4>
     </div>
 
-    <h4>Последно добавени книги</h4>
-    <table class="table table">
-        <thead>
-            <tr>
-                <th scope="col">Изображение за корица</th>
-                <th scope="col">Заглавие</th>
-                <th scope="col">Автор</th>
-                <th scope="col">Потребител</th>
-            </tr>
-        </thead>
+    <h4 class="text-dark">Последно добавени книги</h4>
 
-        <tbody>
-            @foreach (var book in Model)
-            {
-                <tr>
-                    <td class="w-25">
-                        @{
-                            var img = String.Format("data:image/png;base64,{0}", Convert.ToBase64String(book.Book.BookCover.ImageContent));
-                        }
-                        <img src="@img" />
-                    </td>
-                    <td>
-                        <a asp-action="BookDetails"
-                           asp-controller="Book"
-                           asp-route-id="@book.Book.Id" class="text-decoration-none">
-                            @book.Book.BookCover.BookName
-                        </a>
-                    </td>
-                    <td>
-                        <a asp-action="Author"
-                           asp-controller="Author"
-                           asp-route-id="@book.Book.AuthorId"
-                           asp-route-name="@book.Book.Author.Name" class="text-decoration-none">
-                            @book.Book.Author.Name
-                        </a>
-                    </td>
-                    <td>@book.Book.User</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    @foreach (var b in Model)
+    {
+        var img = String.Format("data:image/png;base64,{0}", Convert.ToBase64String(b.Book.BookCover.ImageContent));
+        <div class="card-header bg-transparent d-inline-block m-2 justify-content-center">
+            <img src=@img class="card-img-top" alt="@b.Book.BookCover.BookName" style="width: 100px;">
+            <div class="card-body">
+                <p class="card-text">
+                    <a asp-action="BookDetails"
+                       asp-controller="Book"
+                       asp-route-id="@b.BookId" class="text-decoration-none text-dark font-weight-bold" > 
+                        @b.Book.BookCover.BookName
+                    </a>
+                </p>
+                <p class="card-text">
+                    <a asp-action="Author"
+                       asp-controller="Author"
+                       asp-route-id="@b.Book.AuthorId"
+                       asp-route-name="@b.Book.Author.Name" class="text-decoration-none text-info">
+                        @b.Book.Author.Name
+                    </a>
+                </p>
+            </div>
+        </div>
+    }
 </div>
