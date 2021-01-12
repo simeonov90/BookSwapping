@@ -15,17 +15,20 @@
     {
         private readonly IAuthorService authorService;
         private readonly IBookCoverService bookCoverService;
+        private readonly IGenreService genreService;
         private readonly ApplicationDbContext db;
 
         public BookService
            (
             IAuthorService authorService,
             IBookCoverService bookCoverService,
+            IGenreService genreService,
             ApplicationDbContext db
             )
         {
             this.authorService = authorService;
             this.bookCoverService = bookCoverService;
+            this.genreService = genreService;
             this.db = db;
         }
 
@@ -77,9 +80,60 @@
                 .Include(x => x.User)
                 .AsNoTracking()
                 .ToListAsync();
-            
+
             return book;
         }
 
+        public async Task<EditBookInputViewModel> GetBookForEdit(int id)
+        {
+            var book = await db.Books.Where(x => x.Id == id)
+                .Include(x => x.BookCover)
+                .Include(x => x.Author)
+                .Include(x => x.Genre)
+                .AsNoTracking()
+                .ToListAsync();
+
+            EditBookInputViewModel edit = new EditBookInputViewModel();
+
+            foreach (var b in book)
+            {
+                edit.BookName = b.BookCover.BookName;
+                edit.Author = b.Author.Name;
+                edit.TypeGenre = b.Genre.TypeGenre;
+                edit.Genre = await this.genreService.GetAllGenre();
+                edit.Description = b.BookCover.Description;
+                edit.ExistingPhotoPath = b.BookCover.ImageContent;
+            }
+
+            return edit;
+        }
+
+        public async Task UpdateEditBook(int id, EditBookInputViewModel edit)
+        {
+
+            Book book = await db.Books.Where(x => x.Id == id)
+                .Include(x => x.BookCover)
+                .Include(x => x.Author)
+                .Include(x => x.Genre)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
+            book.BookCover.BookName = edit.BookName;
+            book.Author.Name = edit.Author;
+            book.Genre.TypeGenre = edit.TypeGenre;
+            if (edit.FormFile != null)
+            {
+                var memoryStream = new MemoryStream();
+                var image = SixLabors.ImageSharp.Image.Load(edit.FormFile.OpenReadStream());
+                image.Mutate(x => x.Resize(200, 240));
+                await image.SaveAsPngAsync(memoryStream);
+
+                book.BookCover.ImageContent = memoryStream.ToArray();
+            }
+            book.BookCover.Description = edit.Description;
+            db.BookCovers.Update(book.BookCover);
+            db.Authors.Update(book.Author);
+            db.Genres.Update(book.Genre);
+            await db.SaveChangesAsync();
+        }
     }
 }

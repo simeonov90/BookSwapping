@@ -7,6 +7,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using System;
+    using System.IO;
     using System.Threading.Tasks;
 
     public class BookController : Controller
@@ -38,7 +39,7 @@
         {
             if (!ModelState.IsValid)
             {
-                book.Genre = await  this.genreService.GetAllGenre();
+                book.Genre = await this.genreService.GetAllGenre();
                 return View(book);
             }
 
@@ -80,5 +81,17 @@
             return RedirectToAction("MyBook");
         }
 
+        [Authorize]
+        public async Task<IActionResult> Edit(int id)
+        {               
+            return View(await this.bookService.GetBookForEdit(id));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, EditBookInputViewModel edit)
+        {            
+            await this.bookService.UpdateEditBook(id, edit);
+            return RedirectToAction("MyBook");
+        }
     }
 }
