@@ -23,7 +23,7 @@
             return db.Libraries.ToList().Count();            
         }
 
-        public async Task CancelShareBookFromLibrary(int id)
+        public async Task UnShareBookFromLibrary(int id)
         {          
                 var library = await db.Libraries.Where(x => x.BookId == id).FirstOrDefaultAsync();
                 this.db.Libraries.Remove(library);

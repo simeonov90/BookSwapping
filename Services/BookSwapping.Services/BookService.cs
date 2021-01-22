@@ -34,7 +34,6 @@
 
         public async Task CreateBook(CreateBookInputModel create)
         {
-
             var memoryStream = new MemoryStream();
             var image = SixLabors.ImageSharp.Image.Load(create.FormFile.OpenReadStream());
             image.Mutate(x => x.Resize(200, 240));
@@ -45,9 +44,7 @@
 
             var authorId = db.Authors.Where(a => a.Name == create.Author).Select(a => a.Id).FirstOrDefault();
             var bookCoverId = db.BookCovers.Where(b => b.BookName == create.BookName).ToList().Select(x => x.Id).Last();
-
             var genreId = db.Genres.Where(g => g.TypeGenre == create.TypeGenre).Select(g => g.Id).FirstOrDefault();
-
 
             var books = new Book
             {
@@ -56,9 +53,9 @@
                 GenreId = genreId,
                 UserId = create.UserId
             };
+
             await this.db.Books.AddAsync(books);
             await this.db.SaveChangesAsync();
-
         }
 
         public async Task<ICollection<Book>> GetAllBooksFromUser(GetAllFromUserBookInputModel getAllBook)
@@ -83,7 +80,6 @@
 
             return book;
         }
-
         public async Task<EditBookInputViewModel> GetBookForEdit(int id)
         {
             var book = await db.Books.Where(x => x.Id == id)
@@ -107,10 +103,8 @@
 
             return edit;
         }
-
         public async Task UpdateEditBook(int id, EditBookInputViewModel edit)
         {
-
             Book book = await db.Books.Where(x => x.Id == id)
                 .Include(x => x.BookCover)
                 .Include(x => x.Author)
@@ -120,6 +114,7 @@
             book.BookCover.BookName = edit.BookName;
             book.Author.Name = edit.Author;
             book.Genre.TypeGenre = edit.TypeGenre;
+
             if (edit.FormFile != null)
             {
                 var memoryStream = new MemoryStream();
@@ -129,6 +124,7 @@
 
                 book.BookCover.ImageContent = memoryStream.ToArray();
             }
+
             book.BookCover.Description = edit.Description;
             db.BookCovers.Update(book.BookCover);
             db.Authors.Update(book.Author);

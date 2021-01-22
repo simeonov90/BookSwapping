@@ -49,7 +49,7 @@
             return RedirectToAction("MyBook");
         }
 
-        [AllowAnonymous]
+        [Authorize]
         public async Task<IActionResult> MyBook(GetAllFromUserBookInputModel getAllBook)
         {
            getAllBook.UserId = userManager.GetUserId(HttpContext.User);
@@ -74,9 +74,9 @@
         }
 
         [Authorize]
-        public async Task<IActionResult> CancelShareBookFromLibrary(int id)
+        public async Task<IActionResult> UnShareBookFromLibrary(int id)
         {
-            await this.libraryService.CancelShareBookFromLibrary(id);
+            await this.libraryService.UnShareBookFromLibrary(id);
 
             return RedirectToAction("MyBook");
         }
