@@ -60,7 +60,12 @@
         [Authorize]
         public async Task<IActionResult> BookDetails(int id)
         {
-           return View(await this.bookService.BookDetails(id));            
+            if (await this.libraryService.IsBookShared(id) != 0)
+            {
+                return View(await this.bookService.BookDetails(id));
+            }
+
+            return RedirectToAction("Error", "Home");
         }
 
         [Authorize]
@@ -83,8 +88,13 @@
         }
 
         [Authorize]
-        public async Task<IActionResult> Edit(int id)
-        {               
+        public async Task<IActionResult> Edit(int id, string userId)
+        {
+            var currUser = userManager.GetUserId(this.User);
+            if (currUser != userId)
+            {
+                return View("Error", "Home");
+            }
             return View(await this.bookService.GetBookForEdit(id));
         }
 
