@@ -58,9 +58,9 @@
             await this.db.SaveChangesAsync();
         }
 
-        public async Task<ICollection<Book>> GetAllBooksFromUser(GetAllFromUserBookInputModel getAllBook)
+        public async Task<ICollection<Book>> GetAllBooksFromUser(string userId)
         {
-            var book = await db.Books.Where(x => x.UserId == getAllBook.UserId)
+            var book = await db.Books.Where(x => x.UserId == userId)
                 .Include(c => c.BookCover)
                 .Include(c => c.Author)
                 .Include(c => c.Genre)

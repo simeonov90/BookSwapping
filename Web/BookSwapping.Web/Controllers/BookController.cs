@@ -34,7 +34,7 @@
             return View(viewModel);
         }
 
-       
+
         [HttpPost]
         public async Task<IActionResult> CreateBook(CreateBookInputModel book)
         {
@@ -51,11 +51,11 @@
         }
 
         [Authorize]
-        public async Task<IActionResult> MyBook(GetAllFromUserBookInputModel getAllBook)
+        public async Task<IActionResult> MyBook()
         {
-           getAllBook.UserId = userManager.GetUserId(this.User);
-            
-            return View(await this.bookService.GetAllBooksFromUser(getAllBook));
+            var currUser = userManager.GetUserId(this.User);
+
+            return View(await this.bookService.GetAllBooksFromUser(currUser));
         }
         [Authorize]
         public async Task<IActionResult> BookDetails(int id)
@@ -64,24 +64,24 @@
             {
                 return View(await this.bookService.BookDetails(id));
             }
-
             return RedirectToAction("Error", "Home");
         }
 
         [Authorize]
         public async Task<IActionResult> ShareBookToLibrary(int id)
-        {      
+        {
             var date = DateTime.UtcNow;
             var onlyDate = date.Date.ToString("dd/MM/yyyy");
 
             await this.libraryService.ShareBookToLibrary(id, onlyDate);
-
             return RedirectToAction("MyBook");
+
         }
 
         [Authorize]
         public async Task<IActionResult> UnShareBookFromLibrary(int id)
         {
+
             await this.libraryService.UnShareBookFromLibrary(id);
 
             return RedirectToAction("MyBook");
@@ -93,14 +93,14 @@
             var currUser = userManager.GetUserId(this.User);
             if (currUser != userId)
             {
-                return View("Error", "Home");
+                return RedirectToAction("Error", "Home");
             }
             return View(await this.bookService.GetBookForEdit(id));
         }
 
         [HttpPost]
         public async Task<IActionResult> Edit(int id, EditBookInputViewModel edit)
-        {            
+        {
             await this.bookService.UpdateEditBook(id, edit);
             return RedirectToAction("MyBook");
         }
@@ -109,12 +109,12 @@
         public async Task<IActionResult> Delete(int id, string userId)
         {
             var currUser = userManager.GetUserId(this.User);
-            
+
             if (id == 0 || userId != currUser)
             {
-                return View("Error", "Home");
+                return RedirectToAction("Error", "Home");
             }
-            
+
             return View(await this.bookCoverService.GetBookCover(id));
         }
 
