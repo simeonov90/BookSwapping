@@ -3,6 +3,7 @@
     using BookSwapping.Data;
     using BookSwapping.Data.Models;
     using BookSwapping.Services.Contracts;
+    using System.Linq;
     using System.Threading.Tasks;
     public class BookCoverService : IBookCoverService
     {
@@ -22,6 +23,18 @@
 
             await this.db.BookCovers.AddAsync(bookCover);
             await this.db.SaveChangesAsync();
+        }
+        public async Task Delete(int id)
+        {
+            var book = db.BookCovers.Where(x => x.Id == id).FirstOrDefault();
+            db.BookCovers.Remove(book);
+            await db.SaveChangesAsync();
+        }
+
+        public async Task<BookCover> GetBookCover(int id)
+        {
+            var getBookCover = await db.BookCovers.FindAsync(id);
+            return getBookCover;
         }
     }
 }

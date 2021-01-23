@@ -28,27 +28,29 @@
             builder.Entity<Genre>()
                 .HasMany(c => c.Books)
                 .WithOne(g => g.Genre)
+                .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired();
             builder.Entity<Author>()
                 .HasMany(a => a.Books)
                 .WithOne(a => a.Author)
+                .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired();
             builder.Entity<ApplicationUser>()
                 .HasMany(u => u.Books)
                 .WithOne(u => u.User)
                 .IsRequired();
-            
-                
-                
+                          
             //one to one
             builder.Entity<BookCover>()
                 .HasOne(b => b.Books)
                 .WithOne(b => b.BookCover)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasForeignKey<Book>(b => b.BookCoverId);
 
             builder.Entity<Book>()
                 .HasOne(x => x.Libraries)
                 .WithOne(x => x.Book)
+                .OnDelete(DeleteBehavior.Restrict)
                 .HasForeignKey<Library>(x => x.BookId);
         }
     }

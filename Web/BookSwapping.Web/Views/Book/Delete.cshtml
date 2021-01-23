@@ -1,0 +1,14 @@
+﻿@model BookSwapping.Data.Models.BookCover
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Потвърждение за изтриване</h1>
+<div class="alert alert-danger">
+    <h5>Сигурни ли сте че искате да изтриете книгата @Model.BookName</h5>
+    <form method="post">
+        <button type="submit" class="btn btn-danger">Да</button>
+        <a class="btn btn-primary" asp-action="MyBook" asp-controller="Book">Не</a>
+    </form>
+</div>
+
