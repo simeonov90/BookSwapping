@@ -105,15 +105,25 @@
         }
         public async Task UpdateEditBook(int id, EditBookInputViewModel edit)
         {
-            Book book = await db.Books.Where(x => x.Id == id)
-                .Include(x => x.BookCover)
-                .Include(x => x.Author)
-                .Include(x => x.Genre)
+            var book = await db.Books.Where(x => x.Id == id)
+                .Include(x => x.BookCover)                
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
-            book.BookCover.BookName = edit.BookName;
-            book.Author.Name = edit.Author;
-            book.Genre.TypeGenre = edit.TypeGenre;
+
+            var genreEditId = await db.Genres.Where(x => x.TypeGenre == edit.TypeGenre).Select(x => x.Id).FirstOrDefaultAsync();
+            var authorEditId = await db.Authors.Where(x => x.Name == edit.Author).Select(x => x.Id).FirstOrDefaultAsync();
+
+            if (authorEditId != 0)
+            {                
+                book.AuthorId = authorEditId;
+            }
+            else
+            {
+                await this.authorService.CreateAuthorAsync(edit.Author);
+                
+                var newAuthorId = await db.Authors.Where(x => x.Name == edit.Author).Select(x => x.Id).FirstOrDefaultAsync();
+                book.AuthorId = newAuthorId;                
+            }
 
             if (edit.FormFile != null)
             {
@@ -125,11 +135,15 @@
                 book.BookCover.ImageContent = memoryStream.ToArray();
             }
 
+            book.BookCover.BookName = edit.BookName;
+            book.GenreId = genreEditId;
             book.BookCover.Description = edit.Description;
-            db.BookCovers.Update(book.BookCover);
-            db.Authors.Update(book.Author);
-            db.Genres.Update(book.Genre);
+
+            db.BookCovers.Update(book.BookCover);            
+            db.Books.Update(book);
+
             await db.SaveChangesAsync();
         }
+        
     }
 }

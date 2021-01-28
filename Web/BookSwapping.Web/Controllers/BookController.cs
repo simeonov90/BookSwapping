@@ -88,13 +88,8 @@
         }
 
         [Authorize]
-        public async Task<IActionResult> Edit(int id, string userId)
+        public async Task<IActionResult> Edit(int id)
         {
-            var currUser = userManager.GetUserId(this.User);
-            if (currUser != userId)
-            {
-                return RedirectToAction("Error", "Home");
-            }
             return View(await this.bookService.GetBookForEdit(id));
         }
 

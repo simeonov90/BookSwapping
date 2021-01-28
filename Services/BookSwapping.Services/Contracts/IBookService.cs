@@ -11,6 +11,6 @@
         Task<ICollection<Book>> GetAllBooksFromUser(string userId);
         Task<ICollection<Book>> BookDetails(int id);
         Task<EditBookInputViewModel> GetBookForEdit(int id);
-        Task UpdateEditBook(int id,EditBookInputViewModel edit);
+        Task UpdateEditBook(int id, EditBookInputViewModel edit);
     }
 }
