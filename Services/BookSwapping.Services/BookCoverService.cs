@@ -23,7 +23,7 @@
 
             await this.db.BookCovers.AddAsync(bookCover);
             await this.db.SaveChangesAsync();
-        }
+        }      
         public async Task Delete(int id)
         {
             var book = db.BookCovers.Where(x => x.Id == id).FirstOrDefault();

@@ -52,8 +52,8 @@ namespace BookSwapping.Web
             services.AddControllersWithViews(configure =>
             {
                 configure.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-            });
-
+            });     
+            
             services.AddTransient<IAuthorService, AuthorService>();
             services.AddTransient<IBookCoverService, BookCoverService>();
             services.AddTransient<IGenreService, GenreService>();
@@ -92,6 +92,7 @@ namespace BookSwapping.Web
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
                 endpoints.MapRazorPages();
             });
         }

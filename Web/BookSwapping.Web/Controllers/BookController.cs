@@ -64,7 +64,7 @@
             {
                 return View(await this.bookService.BookDetails(id));
             }
-            return RedirectToAction("Error", "Home");
+            return NotFound();
         }
 
         [Authorize]
@@ -90,7 +90,7 @@
         [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
-            return View(await this.bookService.GetBookForEdit(id));
+                return View(await this.bookService.GetBookForEdit(id));
         }
 
         [HttpPost]
@@ -107,7 +107,7 @@
 
             if (id == 0 || userId != currUser)
             {
-                return RedirectToAction("Error", "Home");
+                return NotFound();
             }
 
             return View(await this.bookCoverService.GetBookCover(id));

@@ -89,19 +89,19 @@
                 .AsNoTracking()
                 .ToListAsync();
 
-            EditBookInputViewModel edit = new EditBookInputViewModel();
+                EditBookInputViewModel edit = new EditBookInputViewModel();
 
-            foreach (var b in book)
-            {
-                edit.BookName = b.BookCover.BookName;
-                edit.Author = b.Author.Name;
-                edit.TypeGenre = b.Genre.TypeGenre;
-                edit.Genre = await this.genreService.GetAllGenre();
-                edit.Description = b.BookCover.Description;
-                edit.ExistingPhotoPath = b.BookCover.ImageContent;
-            }
+                foreach (var b in book)
+                {
+                    edit.BookName = b.BookCover.BookName;
+                    edit.Author = b.Author.Name;
+                    edit.TypeGenre = b.Genre.TypeGenre;
+                    edit.Genre = await this.genreService.GetAllGenre();
+                    edit.Description = b.BookCover.Description;
+                    edit.ExistingPhotoPath = b.BookCover.ImageContent;
+                }
 
-            return edit;
+            return edit;            
         }
         public async Task UpdateEditBook(int id, EditBookInputViewModel edit)
         {
