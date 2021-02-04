@@ -7,7 +7,9 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using System;
+    using BookSwapping.Web.Infrastructure;
     using System.Threading.Tasks;
+
 
     public class BookController : Controller
     {
@@ -15,15 +17,13 @@
         private readonly IBookService bookService;
         private readonly IGenreService genreService;
         private readonly ILibraryService libraryService;
-        private readonly UserManager<ApplicationUser> userManager;
 
-        public BookController(IBookCoverService bookCoverService, IBookService bookService, IGenreService genreService, ILibraryService libraryService, UserManager<ApplicationUser> userManager)
+        public BookController(IBookCoverService bookCoverService, IBookService bookService, IGenreService genreService, ILibraryService libraryService)
         {
             this.bookCoverService = bookCoverService;
             this.bookService = bookService;
             this.genreService = genreService;
             this.libraryService = libraryService;
-            this.userManager = userManager;
         }
 
         [Authorize]
@@ -44,7 +44,8 @@
                 return View(book);
             }
 
-            book.UserId = userManager.GetUserId(this.User);
+            book.UserId = this.User.GetUserId();
+
             await this.bookService.CreateBook(book);
 
             return RedirectToAction("MyBook");
@@ -53,9 +54,7 @@
         [Authorize]
         public async Task<IActionResult> MyBook()
         {
-            var currUser = userManager.GetUserId(this.User);
-
-            return View(await this.bookService.GetAllBooksFromUser(currUser));
+            return View(await this.bookService.GetAllBooksFromUser(this.User.GetUserId()));
         }
         [Authorize]
         public async Task<IActionResult> BookDetails(int id)
@@ -103,7 +102,7 @@
         [Authorize]
         public async Task<IActionResult> Delete(int id, string userId)
         {
-            var currUser = userManager.GetUserId(this.User);
+            var currUser = this.User.GetUserId();
 
             if (id == 0 || userId != currUser)
             {
