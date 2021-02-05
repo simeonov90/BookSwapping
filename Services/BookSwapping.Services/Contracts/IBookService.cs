@@ -7,7 +7,7 @@
     using System.Threading.Tasks;
     public interface IBookService
     {
-        Task CreateBook(CreateBookInputModel create);
+        Task CreateBook(CreateBookInputModel create, string userId);
         Task<ICollection<Book>> GetAllBooksFromUser(string userId);
         Task<ICollection<Book>> BookDetails(int id);
         Task<EditBookInputViewModel> GetBookForEdit(int id);

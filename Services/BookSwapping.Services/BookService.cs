@@ -32,7 +32,7 @@
             this.db = db;
         }
 
-        public async Task CreateBook(CreateBookInputModel create)
+        public async Task CreateBook(CreateBookInputModel create, string userId)
         {
             var memoryStream = new MemoryStream();
             var image = SixLabors.ImageSharp.Image.Load(create.FormFile.OpenReadStream());
@@ -51,7 +51,6 @@
                 AuthorId = authorId,
                 BookCoverId = bookCoverId,
                 GenreId = genreId,
-                UserId = create.UserId
             };
 
             await this.db.Books.AddAsync(books);

@@ -44,9 +44,7 @@
                 return View(book);
             }
 
-            book.UserId = this.User.GetUserId();
-
-            await this.bookService.CreateBook(book);
+            await this.bookService.CreateBook(book, this.User.GetUserId());
 
             return RedirectToAction("MyBook");
         }

@@ -28,8 +28,6 @@
         public string TypeGenre { get; set; }
         public List<string> Genre { get; set; }
 
-        public string UserId { get; set; }
-
         [Display(Name = "Описание")]
         [Required(ErrorMessage = ErrorMesseges.RequiredField)]
         [StringLength(GlobalConstants.BookDescriptionMaxLength, ErrorMessage = ErrorMesseges.BookDescriptionMaxLength)]
