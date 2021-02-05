@@ -51,6 +51,7 @@
                 AuthorId = authorId,
                 BookCoverId = bookCoverId,
                 GenreId = genreId,
+                UserId = userId
             };
 
             await this.db.Books.AddAsync(books);

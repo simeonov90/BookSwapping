@@ -345,7 +345,7 @@ namespace BookSwapping.Data.Migrations
                     b.HasOne("BookSwapping.Data.Models.Author", "Author")
                         .WithMany("Books")
                         .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("BookSwapping.Data.Models.BookCover", "BookCover")
@@ -357,7 +357,7 @@ namespace BookSwapping.Data.Migrations
                     b.HasOne("BookSwapping.Data.Models.Genre", "Genre")
                         .WithMany("Books")
                         .HasForeignKey("GenreId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("BookSwapping.Data.Models.ApplicationUser", "User")
@@ -372,7 +372,7 @@ namespace BookSwapping.Data.Migrations
                     b.HasOne("BookSwapping.Data.Models.Book", "Book")
                         .WithOne("Libraries")
                         .HasForeignKey("BookSwapping.Data.Models.Library", "BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
