@@ -6,6 +6,6 @@
     {
         Task CreateBookCoverAsync(string bookName, byte[] imageContent, string description);
         Task<BookCover> GetBookCover(int id);
-        Task Delete(int id);
+        Task<bool> Delete(int id);
     }
 }

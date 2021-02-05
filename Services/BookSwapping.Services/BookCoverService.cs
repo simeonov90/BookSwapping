@@ -24,17 +24,31 @@
             await this.db.BookCovers.AddAsync(bookCover);
             await this.db.SaveChangesAsync();
         }      
-        public async Task Delete(int id)
+        public async Task<bool> Delete(int id)
         {
             var book = await db.BookCovers.FindAsync(id);
 
+            if (book == null)
+            {
+                return false;
+            }
+
             db.BookCovers.Remove(book);
+
             await db.SaveChangesAsync();
+
+            return true;
         }
 
         public async Task<BookCover> GetBookCover(int id)
         {
             var getBookCover = await db.BookCovers.FindAsync(id);
+
+            if (getBookCover == null)
+            {
+                return null;
+            }
+
             return getBookCover;
         }
     }

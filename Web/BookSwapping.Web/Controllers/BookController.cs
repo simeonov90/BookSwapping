@@ -49,7 +49,7 @@
             return RedirectToAction("MyBook");
         }
 
-        [Authorize]
+        [Authorize]        
         public async Task<IActionResult> MyBook()
         {
             return View(await this.bookService.GetAllBooksFromUser(this.User.GetUserId()));
