@@ -59,11 +59,12 @@
         [Authorize]
         public async Task<IActionResult> BookDetails(int id)
         {
-            if (await this.libraryService.IsBookShared(id) != 0)
+            if (await this.libraryService.IsBookShared(id) == false)
             {
-                return View(await this.bookService.BookDetails(id));
+                return NotFound();               
             }
-            return NotFound();
+
+            return View(await this.bookService.BookDetails(id));
         }
 
         [Authorize]
@@ -72,7 +73,13 @@
             var date = DateTime.UtcNow;
             var onlyDate = date.Date.ToString("dd/MM/yyyy");
 
+            if (!await this.bookService.UserBookExist(id, this.User.GetUserId()))
+            {
+                return NotFound();
+            }
+
             await this.libraryService.ShareBookToLibrary(id, onlyDate);
+
             return RedirectToAction("MyBook");
 
         }
@@ -80,6 +87,10 @@
         [Authorize]
         public async Task<IActionResult> UnShareBookFromLibrary(int id)
         {
+            if (!await this.bookService.UserBookExist(id, this.User.GetUserId()))
+            {
+                return NotFound();
+            }
 
             await this.libraryService.UnShareBookFromLibrary(id);
 
@@ -89,6 +100,10 @@
         [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
+            if (!await this.bookService.UserBookExist(id, this.User.GetUserId()))
+            {
+                return NotFound();
+            }
                 return View(await this.bookService.GetBookForEdit(id));
         }
 
@@ -100,22 +115,21 @@
         }
 
         [Authorize]
-        public async Task<IActionResult> Delete(int id, string userId)
+        public async Task<IActionResult> Delete(int bookId, int bookCoverId)
         {
-            var currUser = this.User.GetUserId();
-
-            if (id == 0 || userId != currUser)
+            if (!await this.bookService.UserBookExist(bookId, this.User.GetUserId()))
             {
                 return NotFound();
             }
 
-            return View(await this.bookCoverService.GetBookCover(id));
+            return View(await this.bookCoverService.GetBookCover(bookCoverId));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int bookCoverId)
         {
-            await this.bookCoverService.Delete(id);
+
+            await this.bookCoverService.Delete(bookCoverId);
             return RedirectToAction("MyBook");
         }
     }

@@ -26,7 +26,8 @@
         }      
         public async Task Delete(int id)
         {
-            var book = db.BookCovers.Where(x => x.Id == id).FirstOrDefault();
+            var book = await db.BookCovers.FindAsync(id);
+
             db.BookCovers.Remove(book);
             await db.SaveChangesAsync();
         }

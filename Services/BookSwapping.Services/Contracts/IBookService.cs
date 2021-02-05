@@ -12,5 +12,6 @@
         Task<ICollection<Book>> BookDetails(int id);
         Task<EditBookInputViewModel> GetBookForEdit(int id);
         Task UpdateEditBook(int id, EditBookInputViewModel edit);
+        Task<bool> UserBookExist(int bookId, string userId);
     }
 }

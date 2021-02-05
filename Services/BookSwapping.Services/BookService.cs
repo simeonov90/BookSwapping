@@ -57,6 +57,11 @@
             await this.db.Books.AddAsync(books);
             await this.db.SaveChangesAsync();
         }
+        public async Task<bool> UserBookExist(int bookId, string userId)
+        {
+            var exist = await db.Books.AnyAsync(x => x.Id == bookId && x.UserId == userId);
+            return exist;
+        }
 
         public async Task<ICollection<Book>> GetAllBooksFromUser(string userId)
         {

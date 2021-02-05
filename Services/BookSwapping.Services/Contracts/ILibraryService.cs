@@ -8,7 +8,7 @@
     {
         Task ShareBookToLibrary(int bookId, string date);
         Task UnShareBookFromLibrary(int id);
-        Task<int> IsBookShared(int id);
+        Task<bool> IsBookShared(int id);
         Task<ICollection<Library>> GetAllBookFromLibrary();
         int CountOfBooksInLibrary();
         Task<ICollection<Library>> LastReceivedBooksToLibrary();

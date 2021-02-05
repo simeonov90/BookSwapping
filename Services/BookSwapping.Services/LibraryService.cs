@@ -77,10 +77,10 @@
 
         }
 
-        public async Task<int> IsBookShared(int id)
+        public async Task<bool> IsBookShared(int id)
         {
-            var isExist = db.Libraries.Where(x => x.BookId == id).Select(x => x.Id).FirstOrDefaultAsync();
-            return await isExist;
+            var isExist = await db.Libraries.AnyAsync(x => x.BookId == id);
+            return isExist;
         }
     }
 }
