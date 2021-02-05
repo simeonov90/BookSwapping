@@ -5,6 +5,7 @@
     using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
 
+    [Authorize]
     public class AuthorController : Controller
     {
         private readonly IAuthorService authorService;
@@ -14,7 +15,6 @@
             this.authorService = authorService;
         }
 
-        [Authorize]
         public async Task<IActionResult> Author(int id, string name)
         {
             ViewData["Author"] = name;

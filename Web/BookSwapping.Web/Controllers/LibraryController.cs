@@ -5,6 +5,7 @@
     using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
 
+    [Authorize]
     public class LibraryController : Controller
     {
         private readonly ILibraryService libraryService;
@@ -13,8 +14,7 @@
         {
             this.libraryService = libraryService;
         }
-
-        [Authorize]
+       
         public async Task<IActionResult> AllBookInLibrary()
         {           
             return View(await this.libraryService.GetAllBookFromLibrary());
