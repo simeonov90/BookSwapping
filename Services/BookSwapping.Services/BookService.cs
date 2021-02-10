@@ -4,6 +4,7 @@
     using BookSwapping.Data.Models;
     using BookSwapping.Models.InputModels.Book;
     using BookSwapping.Services.Contracts;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
     using SixLabors.ImageSharp;
     using SixLabors.ImageSharp.Processing;
@@ -34,12 +35,8 @@
 
         public async Task CreateBook(CreateBookInputModel create, string userId)
         {
-            var memoryStream = new MemoryStream();
-            var image = SixLabors.ImageSharp.Image.Load(create.FormFile.OpenReadStream());
-            image.Mutate(x => x.Resize(200, 240));
-            await image.SaveAsPngAsync(memoryStream);
-
-            await this.bookCoverService.CreateBookCoverAsync(create.BookName, memoryStream.ToArray(), create.Description);
+ 
+            await this.bookCoverService.CreateBookCoverAsync(create.BookName, CreateImageAsync(create.FormFile), create.Description);
             await this.authorService.CreateAuthorAsync(create.Author);
 
             var authorId = db.Authors.Where(a => a.Name == create.Author).Select(a => a.Id).FirstOrDefault();
@@ -132,12 +129,12 @@
 
             if (edit.FormFile != null)
             {
-                var memoryStream = new MemoryStream();
-                var image = SixLabors.ImageSharp.Image.Load(edit.FormFile.OpenReadStream());
-                image.Mutate(x => x.Resize(200, 240));
-                await image.SaveAsPngAsync(memoryStream);
+                //var memoryStream = new MemoryStream();
+                //var image = SixLabors.ImageSharp.Image.Load(edit.FormFile.OpenReadStream());
+                //image.Mutate(x => x.Resize(200, 240));
+                //await image.SaveAsPngAsync(memoryStream);
 
-                book.BookCover.ImageContent = memoryStream.ToArray();
+                book.BookCover.ImageContent = await CreateImageAsync(edit.FormFile);
             }
 
             book.BookCover.BookName = edit.BookName;
@@ -150,5 +147,14 @@
             await db.SaveChangesAsync();
         }
         
+        private static async Task<byte[]> CreateImageAsync(IFormFile formFile)
+        {
+            var memoryStream = new MemoryStream();
+            var image = SixLabors.ImageSharp.Image.Load(formFile.OpenReadStream());
+            image.Mutate(x => x.Resize(200, 240));
+            await image.SaveAsPngAsync(memoryStream);
+
+            return memoryStream.ToArray();
+        }
     }
 }

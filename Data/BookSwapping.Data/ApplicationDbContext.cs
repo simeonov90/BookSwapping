@@ -50,7 +50,7 @@
             builder.Entity<Book>()
                 .HasOne(x => x.Libraries)
                 .WithOne(x => x.Book)
-                .OnDelete(DeleteBehavior.Restrict)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasForeignKey<Library>(x => x.BookId);
         }
     }

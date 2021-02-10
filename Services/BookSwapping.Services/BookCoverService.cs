@@ -12,21 +12,21 @@
         {
             this.db = db;
         }
-        public async Task CreateBookCoverAsync(string bookName, byte[] imageContent, string description)
+        public async Task CreateBookCoverAsync(string bookName, Task<byte[]> imageContent, string description)
         {
             var bookCover = new BookCover
             {
                 BookName = bookName,
-                ImageContent = imageContent,
+                ImageContent = await imageContent,
                 Description = description
             };
 
             await this.db.BookCovers.AddAsync(bookCover);
             await this.db.SaveChangesAsync();
         }      
-        public async Task<bool> Delete(int id)
+        public async Task<bool> Delete(int bookCoverId)
         {
-            var book = await db.BookCovers.FindAsync(id);
+            var book = await db.BookCovers.FindAsync(bookCoverId);
 
             if (book == null)
             {

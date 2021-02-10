@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
     public interface IBookCoverService
     {
-        Task CreateBookCoverAsync(string bookName, byte[] imageContent, string description);
+        Task CreateBookCoverAsync(string bookName, Task<byte[]> imageContent, string description);
         Task<BookCover> GetBookCover(int id);
         Task<bool> Delete(int id);
     }

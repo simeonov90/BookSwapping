@@ -372,7 +372,7 @@ namespace BookSwapping.Data.Migrations
                     b.HasOne("BookSwapping.Data.Models.Book", "Book")
                         .WithOne("Libraries")
                         .HasForeignKey("BookSwapping.Data.Models.Library", "BookId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 

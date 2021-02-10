@@ -25,7 +25,13 @@
             this.genreService = genreService;
             this.libraryService = libraryService;
         }
-        
+
+        [Route("{controller}")]
+        public async Task<IActionResult> MyBook()
+        {
+            return View(await this.bookService.GetAllBooksFromUser(this.User.GetUserId()));
+        }
+
         public async Task<IActionResult> CreateBook()
         {
             var viewModel = new CreateBookInputModel();
@@ -47,17 +53,12 @@
 
             return RedirectToAction(nameof(MyBook));
         }
-     
-        public async Task<IActionResult> MyBook()
-        {
-            return View(await this.bookService.GetAllBooksFromUser(this.User.GetUserId()));
-        }
 
         public async Task<IActionResult> BookDetails(int id)
         {
             if (await this.libraryService.IsBookShared(id) == false)
             {
-                return NotFound();               
+                return NotFound();
             }
 
             return View(await this.bookService.BookDetails(id));
@@ -97,7 +98,7 @@
             {
                 return NotFound();
             }
-                return View(await this.bookService.GetBookForEdit(id));
+            return View(await this.bookService.GetBookForEdit(id));
         }
 
         [HttpPost]

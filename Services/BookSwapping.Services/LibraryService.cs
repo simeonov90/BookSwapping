@@ -20,20 +20,22 @@
 
         public int CountOfBooksInLibrary()
         {
-            return db.Libraries.ToList().Count();            
+            return db.Libraries.ToList().Count();
         }
 
         public async Task UnShareBookFromLibrary(int id)
-        {          
+        {
+            //Task<bool> with anyasync ??
+
                 var library = await db.Libraries.Where(x => x.BookId == id).FirstOrDefaultAsync();
                 this.db.Libraries.Remove(library);
-                await this.db.SaveChangesAsync();
+                await this.db.SaveChangesAsync();          
         }
 
         public async Task<ICollection<Library>> GetAllBookFromLibrary()
         {
 
-            var getAllBookFromLibrary = 
+            var getAllBookFromLibrary =
                 db.Libraries
                 .Include(x => x.Book).ThenInclude(c => c.BookCover)
                 .Include(x => x.Book).ThenInclude(c => c.Author)
@@ -42,7 +44,7 @@
                 .AsNoTracking()
                 .ToListAsync();
 
-           return await getAllBookFromLibrary;
+            return await getAllBookFromLibrary;
         }
 
         public async Task<ICollection<Library>> LastReceivedBooksToLibrary()
@@ -56,7 +58,7 @@
                 .Take(5)
                 .AsNoTracking()
                 .ToListAsync();
-           
+
             return await lastReceivedBooks;
         }
 
@@ -66,7 +68,7 @@
             {
                 BookId = bookId,
                 Date = date,
-                
+
             };
 
             if (!db.Libraries.Select(x => x.BookId).Contains(bookId))

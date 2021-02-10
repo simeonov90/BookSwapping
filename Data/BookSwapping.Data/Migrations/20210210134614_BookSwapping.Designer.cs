@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookSwapping.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210205002221_BookSwapping")]
+    [Migration("20210210134614_BookSwapping")]
     partial class BookSwapping
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -374,7 +374,7 @@ namespace BookSwapping.Data.Migrations
                     b.HasOne("BookSwapping.Data.Models.Book", "Book")
                         .WithOne("Libraries")
                         .HasForeignKey("BookSwapping.Data.Models.Library", "BookId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 

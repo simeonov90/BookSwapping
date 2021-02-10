@@ -39,5 +39,10 @@
 
             return authorBooks;
         }
+        public async Task<bool> AuthorExist(int id, string name)
+        {
+            var exits = await this.db.Authors.AnyAsync(x => x.Id == id && x.Name == name);
+            return exits;
+        }
     }
 }
