@@ -1,6 +1,7 @@
 ﻿namespace BookSwapping.Services
 {
     using BookSwapping.Data;
+    using BookSwapping.Data.Models;
     using BookSwapping.Services.Contracts;
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
@@ -16,9 +17,23 @@
             this.db = db;
         }
 
+        public async Task<ICollection<Book>> GetAllBooksFromGenre(string genre)
+        {
+            var booksFromGenre = await this.db.Books.Where(x => x.Genre.TypeGenre == genre)
+                .Include(x => x.Author)
+                .Include(x => x.BookCover)
+                .Include(x => x.Genre)
+                .AsNoTracking()
+                .ToListAsync();
+
+            return booksFromGenre;
+        }
+
         public async Task<List<string>> GetAllGenre()
         {
             return await this.db.Genres.Select(x => x.TypeGenre).ToListAsync();
         }
+
+
     }
 }

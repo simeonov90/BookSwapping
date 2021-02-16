@@ -34,8 +34,10 @@
                         </h6>
                         <h6 class="card-subtitle mt-2">
                             Жанр:
-                            <a asp-action=""
-                               asp-controller="" class="text-primary text-decoration-none">
+                            <a asp-action="GetAllBooksFromGenre"
+                               asp-controller="Genre"
+                               asp-route-genre="@b.Book.Genre.TypeGenre"
+                               class="text-primary text-decoration-none">
                                 @b.Book.Genre.TypeGenre
                             </a>
                         </h6>

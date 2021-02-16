@@ -54,6 +54,7 @@
             return RedirectToAction(nameof(MyBook));
         }
 
+        [HttpGet]
         public async Task<IActionResult> BookDetails(int id)
         {
             if (await this.libraryService.IsBookShared(id) == false)
@@ -101,7 +102,7 @@
             return View(await this.bookService.GetBookForEdit(id));
         }
 
-        [HttpPost]
+        [HttpPut]
         public async Task<IActionResult> Edit(int id, EditBookInputViewModel edit)
         {
             await this.bookService.UpdateEditBook(id, edit);
