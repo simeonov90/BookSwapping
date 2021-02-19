@@ -59,6 +59,7 @@ namespace BookSwapping.Web
             services.AddTransient<IGenreService, GenreService>();
             services.AddTransient<IBookService, BookService>();
             services.AddTransient<ILibraryService, LibraryService>();
+            services.AddTransient<IRequestedBookService, RequestedBookService>();
             services.AddRazorPages();
             services.AddMvc();
             services.AddRouting(options => options.LowercaseUrls = true);

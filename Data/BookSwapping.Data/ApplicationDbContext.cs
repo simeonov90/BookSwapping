@@ -19,10 +19,24 @@
         public DbSet<Book> Books { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Library> Libraries { get; set; }
+        public DbSet<RequestedBook> RequestedBooks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {           
             base.OnModelCreating(builder);
+
+            //many to many
+            builder.Entity<RequestedBook>()
+                .HasKey(rq => new { rq.UserId, rq.BookId });
+            builder.Entity<RequestedBook>()
+                .HasOne(rb => rb.User)
+                .WithMany(rb => rb.RequestedBooks)
+                .OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<RequestedBook>()
+                .HasOne(rb => rb.Book)
+                .WithMany(rb => rb.RequestedBooks)
+                .OnDelete(DeleteBehavior.Restrict);
+
 
             //one to many
             builder.Entity<Genre>()

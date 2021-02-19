@@ -16,5 +16,6 @@
         }
 
         public ICollection<Book> Books { get; set; } = new List<Book>();
+        public ICollection<RequestedBook> RequestedBooks { get; set; } = new List<RequestedBook>();
     }
 }

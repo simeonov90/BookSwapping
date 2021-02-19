@@ -129,11 +129,6 @@
 
             if (edit.FormFile != null)
             {
-                //var memoryStream = new MemoryStream();
-                //var image = SixLabors.ImageSharp.Image.Load(edit.FormFile.OpenReadStream());
-                //image.Mutate(x => x.Resize(200, 240));
-                //await image.SaveAsPngAsync(memoryStream);
-
                 book.BookCover.ImageContent = await CreateImageAsync(edit.FormFile);
             }
 
@@ -147,7 +142,7 @@
             await db.SaveChangesAsync();
         }
         
-        private static async Task<byte[]> CreateImageAsync(IFormFile formFile)
+        private async Task<byte[]> CreateImageAsync(IFormFile formFile)
         {
             var memoryStream = new MemoryStream();
             var image = SixLabors.ImageSharp.Image.Load(formFile.OpenReadStream());

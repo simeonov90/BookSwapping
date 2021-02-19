@@ -1,4 +1,6 @@
-﻿namespace BookSwapping.Data.Models
+﻿using System.Collections.Generic;
+
+namespace BookSwapping.Data.Models
 {
     public class Book
     {
@@ -12,5 +14,6 @@
         public string UserId { get; set; }
         public virtual ApplicationUser User { get; set; }
         public Library Libraries { get; set; }
+        public ICollection<RequestedBook> RequestedBooks { get; set; } = new List<RequestedBook>();
     }
 }
