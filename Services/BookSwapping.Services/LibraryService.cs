@@ -25,8 +25,6 @@
 
         public async Task UnShareBookFromLibrary(int id)
         {
-            //Task<bool> with anyasync ??
-
                 var library = await db.Libraries.Where(x => x.BookId == id).FirstOrDefaultAsync();
                 this.db.Libraries.Remove(library);
                 await this.db.SaveChangesAsync();          

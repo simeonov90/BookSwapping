@@ -1,4 +1,7 @@
-﻿@model ICollection<BookSwapping.Data.Models.Book>
+﻿@using BookSwapping.Services.Contracts
+@using BookSwapping.Web.Infrastructure
+@inject IRequestedBookService RequestedBookService
+@model ICollection<BookSwapping.Data.Models.Book>
 @{
     ViewData["Title"] = "Book Details";
 }
@@ -21,6 +24,23 @@
                     </div>
                 </div>
             </div>
+            @if (!await RequestedBookService.ItsMineBook(Context.User.GetUserId(), b.Id))
+            {
+                @if (await RequestedBookService.DidIWantThisBook(b.UserId, b.Id))
+                {
+                    <a asp-action="RejectTheRequest" asp-controller="RequestedBook" asp-route-userId="@b.UserId" asp-route-bookId="@b.Id"
+                       type="button" class="btn btn-danger">
+                        Отказ от искането
+                    </a>
+                }
+                else
+                {
+                    <a asp-action="RequestThisBook" asp-controller="RequestedBook" asp-route-userId="@b.UserId" asp-route-bookId="@b.Id"
+                       type="button" class="btn btn-success">
+                        Искам тази книга
+                    </a>
+                }
+            }
         </div>
     }
 </div>
