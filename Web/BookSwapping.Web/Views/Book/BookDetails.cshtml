@@ -6,9 +6,12 @@
     ViewData["Title"] = "Book Details";
 }
 <div class="container h-100 d-flex justify-content-start">
+
     @foreach (var b in Model)
     {
+
         var img = String.Format("data:image/png;base64,{0}", Convert.ToBase64String(b.BookCover.ImageContent));
+
         <div class="card-header">
             <div class="row">
                 <div class="col-auto">
@@ -24,18 +27,19 @@
                     </div>
                 </div>
             </div>
+
             @if (!await RequestedBookService.ItsMineBook(Context.User.GetUserId(), b.Id))
             {
                 @if (await RequestedBookService.DidIWantThisBook(b.UserId, b.Id))
                 {
-                    <a asp-action="RejectTheRequest" asp-controller="RequestedBook" asp-route-userId="@b.UserId" asp-route-bookId="@b.Id"
+                    <a asp-action="RejectTheRequest" asp-controller="RequestedBook" asp-route-userId="@Context.User.GetUserId()" asp-route-bookId="@b.Id"
                        type="button" class="btn btn-danger">
                         Отказ от искането
                     </a>
                 }
                 else
                 {
-                    <a asp-action="RequestThisBook" asp-controller="RequestedBook" asp-route-userId="@b.UserId" asp-route-bookId="@b.Id"
+                    <a asp-action="RequestThisBook" asp-controller="RequestedBook" asp-route-userId="@Context.User.GetUserId()" asp-route-bookId="@b.Id"
                        type="button" class="btn btn-success">
                         Искам тази книга
                     </a>

@@ -4,6 +4,7 @@
     using BookSwapping.Data.Models;
     using BookSwapping.Services.Contracts;
     using Microsoft.EntityFrameworkCore;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     public class RequestedBookService : IRequestedBookService
@@ -57,5 +58,13 @@
             }
              
         }
+
+        public async Task<IEnumerable<string>> ListWithUsers(int bookId)
+        {
+            var users = await db.RequestedBooks.Where(c => c.BookId == bookId).Select(c => c.User.UserName).ToListAsync();
+
+            return users;
+        }
+
     }
 }

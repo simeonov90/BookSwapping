@@ -1,0 +1,24 @@
+﻿@model BookSwapping.Models.ViewModels.Book.OptionsViewModel
+@{
+    ViewData["Title"] = "Options";
+}
+
+@{
+    var img = String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.ImageContent));
+}
+
+<div class="card-header">
+    <div class="row">
+        <div class="col-auto">
+            <img src=@img class="img-fluid img-thumbnail" alt="@Model.Name" style="width: 250px;">
+        </div>
+        <div class="col">
+            <div class="card-body">
+                <h2 class="card-title">@Model.Name</h2>
+                <h6 class="card-subtitle mt-2">Автор:@Model.Author</h6>
+                <h6 class="card-text mt-4">@Model.Description</h6>
+                <h6 class="card-subtitle mt-2">Жанр: @Model.Genre</h6>               
+            </div>
+        </div>
+    </div>
+</div>

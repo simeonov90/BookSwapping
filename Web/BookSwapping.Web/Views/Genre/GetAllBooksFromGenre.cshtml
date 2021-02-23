@@ -1,4 +1,6 @@
-﻿@model ICollection<BookSwapping.Data.Models.Book>
+﻿@using BookSwapping.Services.Contracts
+@model ICollection<BookSwapping.Data.Models.Book>
+@inject ILibraryService LibraryService 
 @{
     ViewData["Title"] = "GetAllBooksFromGenre";
 }
@@ -8,19 +10,21 @@
 
     @foreach (var b in Model)
     {
-
-        var img = String.Format("data:image/png;base64,{0}", Convert.ToBase64String(b.BookCover.ImageContent));
-        <div class="card-header d-inline-block m-2">
-            <img src=@img class="card-img-top" alt="@b.BookCover.BookName" style="width: 150px;">
-            <div class="card-body">
-                <p class="card-text">
-                    <a asp-action="BookDetails"
-                       asp-controller="Book"
-                       asp-route-id="@b.Id" class="text-decoration-none">
-                        @b.BookCover.BookName
-                    </a>
-                </p>
+        if (await this.LibraryService.IsBookShared(b.Id))
+        {
+            var img = String.Format("data:image/png;base64,{0}", Convert.ToBase64String(b.BookCover.ImageContent));
+            <div class="card-header d-inline-block m-2">
+                <img src=@img class="card-img-top" alt="@b.BookCover.BookName" style="width: 150px;">
+                <div class="card-body">
+                    <p class="card-text">
+                        <a asp-action="BookDetails"
+                           asp-controller="Book"
+                           asp-route-id="@b.Id" class="text-decoration-none">
+                            @b.BookCover.BookName
+                        </a>
+                    </p>
+                </div>
             </div>
-        </div>
+        }
     }
 </div>

@@ -3,6 +3,7 @@
     using BookSwapping.Data;
     using BookSwapping.Data.Models;
     using BookSwapping.Models.InputModels.Book;
+    using BookSwapping.Models.ViewModels.Book;
     using BookSwapping.Services.Contracts;
     using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
@@ -35,7 +36,7 @@
 
         public async Task CreateBook(CreateBookInputModel create, string userId)
         {
- 
+
             await this.bookCoverService.CreateBookCoverAsync(create.BookName, CreateImageAsync(create.FormFile), create.Description);
             await this.authorService.CreateAuthorAsync(create.Author);
 
@@ -60,27 +61,36 @@
             return exist;
         }
 
-        public async Task<ICollection<Book>> GetAllBooksFromUser(string userId)
+        public async Task<OptionsViewModel> Options(int bookId)
         {
-            var book = await db.Books.Where(x => x.UserId == userId)
+            var book = await db.Books.Where(c => c.Id == bookId)
                 .Include(c => c.BookCover)
                 .Include(c => c.Author)
                 .Include(c => c.Genre)
-                .AsNoTracking()
-                .ToListAsync();
+                .Select(c => new OptionsViewModel
+                {
+                    ImageContent = c.BookCover.ImageContent,
+                    Name = c.BookCover.BookName,
+                    Author = c.Author.Name,
+                    Description = c.BookCover.Description,
+                    Genre = c.Genre.TypeGenre
+                })
+                .FirstAsync();
+                
+            
             return book;
         }
         public async Task<ICollection<Book>> BookDetails(int id)
         {
-                var book = await db.Books.Where(x => x.Id == id)
-                .Include(x => x.BookCover)
-                .Include(x => x.Author)
-                .Include(x => x.Genre)
-                .Include(x => x.User)
-                .AsNoTracking()
-                .ToListAsync();
+            var book = await db.Books.Where(x => x.Id == id)
+            .Include(x => x.BookCover)
+            .Include(x => x.Author)
+            .Include(x => x.Genre)
+            .Include(x => x.User)
+            .AsNoTracking()
+            .ToListAsync();
 
-                return book;
+            return book;
         }
         public async Task<EditBookInputViewModel> GetBookForEdit(int id)
         {
@@ -91,24 +101,24 @@
                 .AsNoTracking()
                 .ToListAsync();
 
-                EditBookInputViewModel edit = new EditBookInputViewModel();
+            EditBookInputViewModel edit = new EditBookInputViewModel();
 
-                foreach (var b in book)
-                {
-                    edit.BookName = b.BookCover.BookName;
-                    edit.Author = b.Author.Name;
-                    edit.TypeGenre = b.Genre.TypeGenre;
-                    edit.Genre = await this.genreService.GetAllGenre();
-                    edit.Description = b.BookCover.Description;
-                    edit.ExistingPhotoPath = b.BookCover.ImageContent;
-                }
+            foreach (var b in book)
+            {
+                edit.BookName = b.BookCover.BookName;
+                edit.Author = b.Author.Name;
+                edit.TypeGenre = b.Genre.TypeGenre;
+                edit.Genre = await this.genreService.GetAllGenre();
+                edit.Description = b.BookCover.Description;
+                edit.ExistingPhotoPath = b.BookCover.ImageContent;
+            }
 
-            return edit;            
+            return edit;
         }
         public async Task UpdateEditBook(int id, EditBookInputViewModel edit)
         {
             var book = await db.Books.Where(x => x.Id == id)
-                .Include(x => x.BookCover)                
+                .Include(x => x.BookCover)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
 
@@ -116,15 +126,15 @@
             var authorEditId = await db.Authors.Where(x => x.Name == edit.Author).Select(x => x.Id).FirstOrDefaultAsync();
 
             if (authorEditId != 0)
-            {                
+            {
                 book.AuthorId = authorEditId;
             }
             else
             {
                 await this.authorService.CreateAuthorAsync(edit.Author);
-                
+
                 var newAuthorId = await db.Authors.Where(x => x.Name == edit.Author).Select(x => x.Id).FirstOrDefaultAsync();
-                book.AuthorId = newAuthorId;                
+                book.AuthorId = newAuthorId;
             }
 
             if (edit.FormFile != null)
@@ -136,12 +146,12 @@
             book.GenreId = genreEditId;
             book.BookCover.Description = edit.Description;
 
-            db.BookCovers.Update(book.BookCover);            
+            db.BookCovers.Update(book.BookCover);
             db.Books.Update(book);
 
             await db.SaveChangesAsync();
         }
-        
+
         private async Task<byte[]> CreateImageAsync(IFormFile formFile)
         {
             var memoryStream = new MemoryStream();

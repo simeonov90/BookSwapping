@@ -2,7 +2,10 @@
 {
     using BookSwapping.Data;
     using BookSwapping.Data.Models;
+    using BookSwapping.Models.ViewModels.BookCover;
     using BookSwapping.Services.Contracts;
+    using Microsoft.EntityFrameworkCore;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     public class BookCoverService : IBookCoverService
@@ -50,6 +53,19 @@
             }
 
             return getBookCover;
+        }
+        public async Task<IEnumerable<GetAllByUserViewModel>> GetAllByUser(string userId)
+        {
+            var getAll = await db.BookCovers.Where(c => c.Books.UserId == userId).Select(c => new GetAllByUserViewModel
+            {
+                ImageContent = c.ImageContent,
+                BookName = c.BookName,
+                BookId = c.Books.Id
+            })
+                .AsNoTracking()
+                .ToListAsync();
+
+            return getAll;
         }
     }
 }

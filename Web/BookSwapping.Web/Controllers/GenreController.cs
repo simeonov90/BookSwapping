@@ -7,10 +7,12 @@
     using BookSwapping.Services.Contracts;
     using Microsoft.AspNetCore.Mvc;
 
+    [Route("{controller}")]
     public class GenreController : Controller
     {
         private readonly IGenreService genreService;
 
+        
         public GenreController(IGenreService genreService)
         {
             this.genreService = genreService;
@@ -20,6 +22,7 @@
         public async Task<IActionResult> GetAllBooksFromGenre(string genre)
         {
             ViewData["Genre"] = genre;
+
             return View(await this.genreService.GetAllBooksFromGenre(genre));
         }
     }

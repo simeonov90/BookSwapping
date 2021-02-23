@@ -15,8 +15,4 @@
     <ProjectReference Include="..\..\Data\BookSwapping.Data\BookSwapping.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Book\" />
-  </ItemGroup>
-
 </Project>

@@ -1,0 +1,28 @@
+﻿@model IEnumerable<BookSwapping.Models.ViewModels.BookCover.GetAllByUserViewModel>
+@{
+    ViewData["Title"] = "Book";
+}
+
+<div class="container">
+    @for (int i = 0; i < Model.Count(); i++)
+    {
+        if (i % 5 == 0)
+        {
+            <br />
+        }
+        var img = String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.ElementAt(i).ImageContent));
+
+        <div class="row d-inline-flex">
+            <div class="col">
+                <figure class="figure">
+                    <img src="@img" class="figure-img img-fluid rounded" alt="@Model.ElementAt(i).BookName">
+                    <figcaption class="figure-caption text-center">@Model.ElementAt(i).BookName</figcaption>
+                    <a asp-action="Options" 
+                       asp-controller="Book"                      
+                       asp-route-bookId="@Model.ElementAt(i).BookId" class="btn-info">Опции</a>
+                </figure>
+            </div>
+
+        </div>
+    }
+</div>
