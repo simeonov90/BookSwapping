@@ -61,19 +61,21 @@
             return exist;
         }
 
-        public async Task<OptionsViewModel> Options(int bookId)
+        public async Task<AboutBookViewModel> AboutBook(int bookId)
         {
             var book = await db.Books.Where(c => c.Id == bookId)
                 .Include(c => c.BookCover)
                 .Include(c => c.Author)
                 .Include(c => c.Genre)
-                .Select(c => new OptionsViewModel
+                .Select(c => new AboutBookViewModel
                 {
                     ImageContent = c.BookCover.ImageContent,
                     Name = c.BookCover.BookName,
                     Author = c.Author.Name,
                     Description = c.BookCover.Description,
-                    Genre = c.Genre.TypeGenre
+                    Genre = c.Genre.TypeGenre,
+                    Id = c.Id,
+                    BookCoverId = c.BookCoverId
                 })
                 .FirstAsync();
                 

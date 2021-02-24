@@ -25,21 +25,21 @@
             this.libraryService = libraryService;
         }
 
-        [HttpGet("{controller}")]
+        
         public async Task<IActionResult> Book()
         {
            return View(await this.bookCoverService.GetAllByUser(this.User.GetUserId()));
         }
 
-        [HttpGet("{action}")]
-        public async Task<IActionResult> Options(int bookId)
+        
+        public async Task<IActionResult> AboutBook(int bookId)
         {
             if (!await this.bookService.UserBookExist(bookId, this.User.GetUserId()))
             {
                return NotFound();
             }
 
-            return View(await this.bookService.Options(bookId));
+            return View(await this.bookService.AboutBook(bookId));
         }
 
         public async Task<IActionResult> CreateBook()
@@ -112,11 +112,11 @@
             return View(await this.bookService.GetBookForEdit(id));
         }
 
-        [HttpPut]
+        [HttpPost]
         public async Task<IActionResult> Edit(int id, EditBookInputViewModel edit)
         {
             await this.bookService.UpdateEditBook(id, edit);
-            return RedirectToAction(nameof(Book));
+            return RedirectToAction("Book");
         }
 
         public async Task<IActionResult> Delete(int bookId, int bookCoverId)

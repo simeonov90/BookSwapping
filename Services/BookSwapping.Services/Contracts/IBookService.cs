@@ -9,10 +9,10 @@
     public interface IBookService
     {
         Task CreateBook(CreateBookInputModel create, string userId);
-        Task<OptionsViewModel> Options(int bookId);
+        Task<AboutBookViewModel> AboutBook(int bookId);
         Task<ICollection<Book>> BookDetails(int id);
         Task<EditBookInputViewModel> GetBookForEdit(int id);
-        Task UpdateEditBook(int id, EditBookInputViewModel edit);
+        Task UpdateEditBook(int bookId, EditBookInputViewModel edit);
         Task<bool> UserBookExist(int bookId, string userId);
     }
 }
