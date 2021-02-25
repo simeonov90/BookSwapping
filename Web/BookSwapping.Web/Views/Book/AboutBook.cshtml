@@ -1,4 +1,6 @@
-﻿@model BookSwapping.Models.ViewModels.Book.AboutBookViewModel
+﻿@using BookSwapping.Services.Contracts
+@model BookSwapping.Models.ViewModels.Book.AboutBookViewModel
+@inject IRequestedBookService RequestedBookService 
 @{
     ViewData["Title"] = "AboutBook";
 }
@@ -25,7 +27,18 @@
                 <h6 class="card-subtitle mt-2">Жанр: @Model.Genre</h6>
                 <h6 class="card-text mt-4">@Model.Description</h6>
             </div>
+
         </div>
 
     </div>
+    @{
+        var users = await this.RequestedBookService.ListWithUsers(Model.Id);
+    }
+
+    @foreach (var usr in users)
+    {
+        <div class="d-inline-block btn btn-outline-info">
+            @usr
+        </div>
+    }
 </div> 
