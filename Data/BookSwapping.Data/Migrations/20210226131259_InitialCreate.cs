@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BookSwapping.Data.Migrations
 {
-    public partial class BookSwapping : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -241,7 +241,7 @@ namespace BookSwapping.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Date = table.Column<string>(nullable: false),
+                    Date = table.Column<DateTime>(nullable: false),
                     BookId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -253,6 +253,30 @@ namespace BookSwapping.Data.Migrations
                         principalTable: "Books",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RequestedBooks",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(nullable: false),
+                    BookId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RequestedBooks", x => new { x.UserId, x.BookId });
+                    table.ForeignKey(
+                        name: "FK_RequestedBooks_Books_BookId",
+                        column: x => x.BookId,
+                        principalTable: "Books",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_RequestedBooks_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -320,6 +344,11 @@ namespace BookSwapping.Data.Migrations
                 table: "Libraries",
                 column: "BookId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RequestedBooks_BookId",
+                table: "RequestedBooks",
+                column: "BookId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -341,6 +370,9 @@ namespace BookSwapping.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Libraries");
+
+            migrationBuilder.DropTable(
+                name: "RequestedBooks");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

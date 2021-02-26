@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookSwapping.Web", "Web\Boo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookSwapping.Common", "BookSwapping.Common\BookSwapping.Common.csproj", "{E9C90BCD-FED8-417A-BE4E-DB5D550C2299}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookSwapping.Data", "Data\BookSwapping.Data\BookSwapping.Data.csproj", "{D3AAC413-3F8D-4C39-9411-629EDFFE7DC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookSwapping.Data", "Data\BookSwapping.Data\BookSwapping.Data.csproj", "{D3AAC413-3F8D-4C39-9411-629EDFFE7DC5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

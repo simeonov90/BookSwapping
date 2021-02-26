@@ -12,6 +12,7 @@ namespace BookSwapping.Web
     using BookSwapping.Services;
     using BookSwapping.Services.Contracts;
     using BookSwapping.Data.Models;
+    using BookSwapping.Web.Infrastructure.Photos;
 
     public class Startup
     {
@@ -63,6 +64,7 @@ namespace BookSwapping.Web
             services.AddRazorPages();
             services.AddMvc();
             services.AddRouting(options => options.LowercaseUrls = true);
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySetting"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

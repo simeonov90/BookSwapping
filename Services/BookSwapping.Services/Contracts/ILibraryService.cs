@@ -6,7 +6,7 @@
     using System.Threading.Tasks;
     public interface ILibraryService
     {
-        Task ShareBookToLibrary(int bookId, string date);
+        Task ShareBookToLibrary(int bookId);
         Task UnShareBookFromLibrary(int id);
         Task<bool> IsBookShared(int id);
         Task<ICollection<Library>> GetAllBookFromLibrary();

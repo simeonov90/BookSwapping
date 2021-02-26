@@ -5,7 +5,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System;
-    using BookSwapping.Web.Infrastructure;
+    using BookSwapping.Web.Infrastructure.Claims;
     using System.Threading.Tasks;
     using BookSwapping.Models.ViewModels.Book;
 
@@ -77,15 +77,13 @@
 
         public async Task<IActionResult> ShareBookToLibrary(int id)
         {
-            var date = DateTime.UtcNow;
-            var onlyDate = date.Date.ToString("dd/MM/yyyy");
 
             if (!await this.bookService.UserBookExist(id, this.User.GetUserId()))
             {
                 return NotFound();
             }
 
-            await this.libraryService.ShareBookToLibrary(id, onlyDate);
+            await this.libraryService.ShareBookToLibrary(id);
 
             return RedirectToAction(nameof(Book));
 

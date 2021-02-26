@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookSwapping.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210210134614_BookSwapping")]
-    partial class BookSwapping
+    [Migration("20210226131259_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -195,9 +195,8 @@ namespace BookSwapping.Data.Migrations
                     b.Property<int>("BookId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Date")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -205,6 +204,21 @@ namespace BookSwapping.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Libraries");
+                });
+
+            modelBuilder.Entity("BookSwapping.Data.Models.RequestedBook", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "BookId");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("RequestedBooks");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -375,6 +389,21 @@ namespace BookSwapping.Data.Migrations
                         .WithOne("Libraries")
                         .HasForeignKey("BookSwapping.Data.Models.Library", "BookId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BookSwapping.Data.Models.RequestedBook", b =>
+                {
+                    b.HasOne("BookSwapping.Data.Models.Book", "Book")
+                        .WithMany("RequestedBooks")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("BookSwapping.Data.Models.ApplicationUser", "User")
+                        .WithMany("RequestedBooks")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 

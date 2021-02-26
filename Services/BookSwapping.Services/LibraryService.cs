@@ -60,13 +60,11 @@
             return await lastReceivedBooks;
         }
 
-        public async Task ShareBookToLibrary(int bookId, string date)
+        public async Task ShareBookToLibrary(int bookId)
         {
             var library = new Library
             {
                 BookId = bookId,
-                Date = date,
-
             };
 
             if (!db.Libraries.Select(x => x.BookId).Contains(bookId))

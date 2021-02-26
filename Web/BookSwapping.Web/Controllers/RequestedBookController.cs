@@ -1,7 +1,7 @@
 ﻿namespace BookSwapping.Web.Controllers
 {
     using BookSwapping.Services.Contracts;
-    using BookSwapping.Web.Infrastructure;
+    using BookSwapping.Web.Infrastructure.Claims;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;

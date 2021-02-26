@@ -1,4 +1,4 @@
-﻿namespace BookSwapping.Web.Infrastructure
+﻿namespace BookSwapping.Web.Infrastructure.Claims
 {
     using System.Security.Claims;
 

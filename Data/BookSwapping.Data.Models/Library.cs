@@ -8,10 +8,15 @@
 
         [Required]
         [DataType(DataType.Date)]
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
 
         [Required]
         public int BookId { get; set; }
         public virtual Book Book { get; set; }
+
+        public Library()
+        {
+            Date = DateTime.UtcNow;
+        }
     }
 }
