@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookSwapping.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210226131259_InitialCreate")]
+    [Migration("20210226213021_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
