@@ -10,10 +10,12 @@
     public class RequestedBookController : Controller
     {
         private readonly IRequestedBookService requestedBookService;
+        private readonly ILibraryService libraryService;
 
-        public RequestedBookController(IRequestedBookService requestedBookService)
+        public RequestedBookController(IRequestedBookService requestedBookService, ILibraryService libraryService)
         {
             this.requestedBookService = requestedBookService;
+            this.libraryService = libraryService;
         }
 
         public IActionResult Index()
@@ -21,23 +23,27 @@
             return View();
         }
 
-        public async Task<IActionResult> RequestThisBook(string userId, int bookId)
+        public async Task<IActionResult> RequestThisBook(int bookId)
         {
             if (await requestedBookService.ItsMineBook(this.User.GetUserId(), bookId))
             {
                 return BadRequest();
             }
 
-            await this.requestedBookService.RequestThisBook(userId, bookId);
+            if (await this.libraryService.IsBookShared(bookId) == false)
+            {
+                return BadRequest();
+            }
+            await this.requestedBookService.RequestThisBook(this.User.GetUserId(), bookId);
 
             return RedirectToAction("Index", "Home");
         }
 
-        public async Task<IActionResult> RejectTheRequest(string userId, int bookId)
+        public async Task<IActionResult> RejectTheRequest(int bookId)
         {
-            if (!await requestedBookService.DidIWantThisBook(this.User.GetUserId(), bookId))
+            if (await requestedBookService.DidIWantThisBook(this.User.GetUserId(), bookId))
             {
-                await this.requestedBookService.RejectTheRequest(userId, bookId);
+                await this.requestedBookService.RejectTheRequest(this.User.GetUserId(), bookId);
 
                 return RedirectToAction("Index", "Home");
             }

@@ -18,7 +18,7 @@
 
         public async Task<bool> DidIWantThisBook(string userId, int bookId)
         {
-            var wontBook = await this.db.RequestedBooks.AnyAsync(c => c.BookId == bookId && c.UserId == userId);
+            var wontBook = await this.db.RequestedBooks.AnyAsync(c => c.UserId == userId && c.BookId == bookId);
 
             return wontBook;
         }

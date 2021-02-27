@@ -28,18 +28,18 @@
                 </div>
             </div>
 
-            @if (!await RequestedBookService.ItsMineBook(Context.User.GetUserId(), b.Id))
+            @if (!await RequestedBookService.ItsMineBook(this.User.GetUserId(), b.Id))
             {
-                @if (await RequestedBookService.DidIWantThisBook(b.UserId, b.Id))
+                @if (await RequestedBookService.DidIWantThisBook(this.User.GetUserId(), b.Id))
                 {
-                    <a asp-action="RejectTheRequest" asp-controller="RequestedBook" asp-route-userId="@Context.User.GetUserId()" asp-route-bookId="@b.Id"
+                    <a asp-action="RejectTheRequest" asp-controller="RequestedBook" asp-route-bookId="@b.Id"
                        type="button" class="btn btn-danger">
                         Отказ от искането
                     </a>
                 }
                 else
                 {
-                    <a asp-action="RequestThisBook" asp-controller="RequestedBook" asp-route-userId="@Context.User.GetUserId()" asp-route-bookId="@b.Id"
+                    <a asp-action="RequestThisBook" asp-controller="RequestedBook" asp-route-userId="@b.UserId" asp-route-bookId="@b.Id"
                        type="button" class="btn btn-success">
                         Искам тази книга
                     </a>
