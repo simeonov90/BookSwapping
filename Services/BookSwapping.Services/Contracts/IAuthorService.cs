@@ -8,6 +8,7 @@
         Task CreateAuthorAsync(string name);
         Task<ICollection<Library>> GetAllAuthorBooks(int id);
         Task<bool> AuthorExist(int id, string name);
+        Task<IEnumerable<string>> GetAllAuthor();
     }
 
 }

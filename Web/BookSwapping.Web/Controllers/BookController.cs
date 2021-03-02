@@ -4,10 +4,9 @@
     using BookSwapping.Services.Contracts;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using System;
     using BookSwapping.Web.Infrastructure.Claims;
     using System.Threading.Tasks;
-    using BookSwapping.Models.ViewModels.Book;
+    using BookSwapping.Services;
 
     [Authorize]
     public class BookController : Controller
@@ -16,13 +15,19 @@
         private readonly IBookService bookService;
         private readonly IGenreService genreService;
         private readonly ILibraryService libraryService;
+        private readonly IAuthorService authorService;
 
-        public BookController(IBookCoverService bookCoverService, IBookService bookService, IGenreService genreService, ILibraryService libraryService)
+        public BookController(IBookCoverService bookCoverService,
+            IBookService bookService,
+            IGenreService genreService,
+            ILibraryService libraryService,
+            IAuthorService authorService)
         {
             this.bookCoverService = bookCoverService;
             this.bookService = bookService;
             this.genreService = genreService;
             this.libraryService = libraryService;
+            this.authorService = authorService;
         }
 
         
@@ -45,7 +50,8 @@
         public async Task<IActionResult> CreateBook()
         {
             var viewModel = new CreateBookInputModel();
-            viewModel.Genre = await this.genreService.GetAllGenre();
+            viewModel.GetAllGenre = await this.genreService.GetAllGenre();
+            viewModel.GetAllAuthor = await this.authorService.GetAllAuthor();
             return View(viewModel);
         }
 
@@ -55,7 +61,7 @@
         {
             if (!ModelState.IsValid)
             {
-                book.Genre = await this.genreService.GetAllGenre();
+                book.GetAllGenre = await this.genreService.GetAllGenre();
                 return View(book);
             }
 

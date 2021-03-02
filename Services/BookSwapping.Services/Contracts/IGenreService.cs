@@ -6,7 +6,7 @@
 
     public interface IGenreService
     {
-        Task<List<string>> GetAllGenre();
+        Task<IEnumerable<string>> GetAllGenre();
         Task<ICollection<Book>> GetAllBooksFromGenre(string genre);
     }
 }

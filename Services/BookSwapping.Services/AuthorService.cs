@@ -21,7 +21,8 @@
                 Name = name
             };
 
-            var isExistAuthor = db.Authors.Where(x => x.Name == name).Select(x => x.Name).FirstOrDefault();
+            var isExistAuthor = await db.Authors.Where(x => x.Name == name).Select(x => x.Name).FirstOrDefaultAsync();
+
             if (isExistAuthor == null)
             {
                 await this.db.Authors.AddAsync(author);
@@ -43,6 +44,11 @@
         {
             var exits = await this.db.Authors.AnyAsync(x => x.Id == id && x.Name == name);
             return exits;
+        }
+
+        public async Task<IEnumerable<string>> GetAllAuthor()
+        {
+            return await this.db.Authors.Select(x => x.Name).ToListAsync();
         }
     }
 }

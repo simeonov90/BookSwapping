@@ -29,7 +29,7 @@
             return booksFromGenre;
         }
 
-        public async Task<List<string>> GetAllGenre()
+        public async Task<IEnumerable<string>> GetAllGenre()
         {
             return await this.db.Genres.Select(x => x.TypeGenre).ToListAsync();
         }

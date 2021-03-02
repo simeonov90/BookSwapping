@@ -100,22 +100,21 @@
                 .Include(x => x.BookCover)
                 .Include(x => x.Author)
                 .Include(x => x.Genre)
+                .Select(x => new EditBookInputViewModel
+                {
+                    BookName = x.BookCover.BookName,
+                    Author = x.Author.Name,
+                    TypeGenre = x.Genre.TypeGenre,
+                    Description = x.BookCover.Description,
+                    ExistingPhotoPath = x.BookCover.ImageContent
+                })
                 .AsNoTracking()
-                .ToListAsync();
+                .FirstOrDefaultAsync();
 
-            EditBookInputViewModel edit = new EditBookInputViewModel();
+            book.GetAllAuthor = await this.authorService.GetAllAuthor();
+            book.GetAllGenre = await this.genreService.GetAllGenre();
 
-            foreach (var b in book)
-            {
-                edit.BookName = b.BookCover.BookName;
-                edit.Author = b.Author.Name;
-                edit.TypeGenre = b.Genre.TypeGenre;
-                edit.Genre = await this.genreService.GetAllGenre();
-                edit.Description = b.BookCover.Description;
-                edit.ExistingPhotoPath = b.BookCover.ImageContent;
-            }
-
-            return edit;
+            return book;
         }
         public async Task UpdateEditBook(int id, EditBookInputViewModel edit)
         {
