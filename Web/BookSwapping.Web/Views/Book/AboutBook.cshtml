@@ -12,9 +12,9 @@
 
 <div class="card-header">
     <div class="card-title">
-        <a asp-action="Edit" asp-controller="Book" asp-route-id="@Model.Id" class="btn btn-info btn-sm">Редактирай</a>
+        <a asp-action="Edit" asp-controller="Book" asp-route-bookId="@Model.BookId" class="btn btn-info btn-sm">Редактирай</a>
 
-        <a asp-action="Delete" asp-controller="Book" asp-route-id="@Model.Id" asp-route-bookCoverId="@Model.BookCoverId" class="btn btn-danger btn-sm">Изтрий</a>
+        <a asp-action="Delete" asp-controller="Book" asp-route-bookId="@Model.BookId" asp-route-bookCoverId="@Model.BookCoverId" class="btn btn-danger btn-sm">Изтрий</a>
     </div>
     <div class="row">
         <div class="col-auto">
@@ -34,7 +34,7 @@
     <div>
         <h5>Хора искащи книгата</h5>
         @{
-            var users = await this.RequestedBookService.ListWithUsers(Model.Id);
+            var users = await this.RequestedBookService.ListWithUsers(Model.BookId);
         }
 
         @foreach (var usr in users)

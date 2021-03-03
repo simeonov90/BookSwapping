@@ -107,19 +107,19 @@
             return RedirectToAction(nameof(Book));
         }
 
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(int bookId)
         {
-            if (!await this.bookService.UserBookExist(id, this.User.GetUserId()))
+            if (!await this.bookService.UserBookExist(bookId, this.User.GetUserId()))
             {
                 return NotFound();
             }
-            return View(await this.bookService.GetBookForEdit(id));
+            return View(await this.bookService.GetBookForEdit(bookId));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, EditBookInputViewModel edit)
+        public async Task<IActionResult> Edit(int bookId, EditBookInputViewModel edit)
         {
-            await this.bookService.UpdateEditBook(id, edit);
+            await this.bookService.UpdateEditBook(bookId, edit);
             return RedirectToAction("Book");
         }
 

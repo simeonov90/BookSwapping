@@ -7,7 +7,7 @@
         public string Author { get; set; }
         public string Description { get; set; }
         public string Genre { get; set; }
-        public int Id { get; set; }
+        public int BookId { get; set; }
         public int BookCoverId { get; set; }
 
 

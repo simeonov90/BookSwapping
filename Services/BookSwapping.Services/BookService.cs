@@ -74,7 +74,7 @@
                     Author = c.Author.Name,
                     Description = c.BookCover.Description,
                     Genre = c.Genre.TypeGenre,
-                    Id = c.Id,
+                    BookId = c.Id,
                     BookCoverId = c.BookCoverId
                 })
                 .FirstAsync();
@@ -110,7 +110,9 @@
                     Author = x.Author.Name,
                     TypeGenre = x.Genre.TypeGenre,
                     Description = x.BookCover.Description,
-                    ExistingPhotoPath = x.BookCover.ImageContent
+                    ExistingPhotoPath = x.BookCover.ImageContent,
+                    BookId = x.Id
+
                 })
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
@@ -120,9 +122,9 @@
 
             return book;
         }
-        public async Task UpdateEditBook(int id, EditBookInputViewModel edit)
+        public async Task UpdateEditBook(int bookId, EditBookInputViewModel edit)
         {
-            var book = await db.Books.Where(x => x.Id == id)
+            var book = await db.Books.Where(x => x.Id == bookId)
                 .Include(x => x.BookCover)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
