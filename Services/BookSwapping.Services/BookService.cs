@@ -104,9 +104,6 @@
         public async Task<EditBookInputViewModel> GetBookForEdit(int id)
         {
             var book = await db.Books.Where(x => x.Id == id)
-                .Include(x => x.BookCover)
-                .Include(x => x.Author)
-                .Include(x => x.Genre)
                 .Select(x => new EditBookInputViewModel
                 {
                     BookName = x.BookCover.BookName,
