@@ -91,7 +91,7 @@
                 BookName = x.BookCover.BookName,               
                 Description = x.BookCover.Description,
                 AuthorName = x.Author.Name,                
-                TypeGenre = x.Genre.TypeGenre,
+                Genre = x.Genre.TypeGenre,
                 UploadBy = x.User.UserName,
                 BookId = x.Id,
                 AuthorId = x.AuthorId,

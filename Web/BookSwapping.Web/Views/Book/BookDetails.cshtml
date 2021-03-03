@@ -21,7 +21,7 @@
                     <div class="card-body">
                         <h2 class="card-title">@b.BookName</h2>
                         <h6 class="card-subtitle mt-2">Автор: <a asp-action="Author" asp-controller="Author" asp-route-id="@b.AuthorId" asp-route-name="@b.AuthorName" class="text-primary text-decoration-none">@b.AuthorName</a></h6>
-                        <h6 class="card-subtitle mt-2">Жанр: <a asp-action="GetAllBooksFromGenre" asp-controller="Genre" asp-route-genre="@b.TypeGenre" class="text-primary text-decoration-none">@b.TypeGenre</a></h6>
+                        <h6 class="card-subtitle mt-2">Жанр: <a asp-action="GetAllBooksFromGenre" asp-controller="Genre" asp-route-genre="@b.Genre" class="text-primary text-decoration-none">@b.Genre</a></h6>
                         <h6 class="card-subtitle mt-2">Каченa от: @b.UploadBy</h6>
                         <h6 class="card-text mt-4">@b.Description</h6>
                     </div>
