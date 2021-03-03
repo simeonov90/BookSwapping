@@ -24,8 +24,7 @@
         protected override void OnModelCreating(ModelBuilder builder)
         {           
             base.OnModelCreating(builder);
-
-            //many to many
+            
             builder.Entity<RequestedBook>()
                 .HasKey(rq => new { rq.UserId, rq.BookId });
             builder.Entity<RequestedBook>()
@@ -35,10 +34,8 @@
             builder.Entity<RequestedBook>()
                 .HasOne(rb => rb.Book)
                 .WithMany(rb => rb.RequestedBooks)
-                .OnDelete(DeleteBehavior.Restrict);
-
-
-            //one to many
+                .OnDelete(DeleteBehavior.Cascade);
+          
             builder.Entity<Genre>()
                 .HasMany(c => c.Books)
                 .WithOne(g => g.Genre)
@@ -53,8 +50,7 @@
                 .HasMany(u => u.Books)
                 .WithOne(u => u.User)
                 .IsRequired();
-                          
-            //one to one
+                                     
             builder.Entity<BookCover>()
                 .HasOne(b => b.Books)
                 .WithOne(b => b.BookCover)
