@@ -23,7 +23,7 @@
             var booksFromGenre = await this.db.Books.Where(x => x.Genre.TypeGenre == genre)
                 .Select(x => new GetAllBooksFromGenreViewModel
                 {
-                    Author = x.Author.Name,
+                    AuthorName = x.Author.Name,
                     AuthorId = x.AuthorId,
                     BookName = x.BookCover.BookName,
                     BookId = x.BookCoverId,

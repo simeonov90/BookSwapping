@@ -52,14 +52,20 @@
             return await getAllBookFromLibrary;
         }
 
-        public async Task<ICollection<Library>> LastReceivedBooksToLibrary()
+        public async Task<IEnumerable<LastReceivedBooksToLibraryViewModel>> LastReceivedBooksToLibrary()
         {
 
             var lastReceivedBooks = db.Libraries
-                .Include(x => x.Book).ThenInclude(c => c.BookCover)
-                .Include(x => x.Book).ThenInclude(a => a.Author)
-                .Include(x => x.Book).ThenInclude(u => u.User)
-                .OrderByDescending(x => x.Id)
+                .Select(x => new LastReceivedBooksToLibraryViewModel
+                {
+                    ImageContent = x.Book.BookCover.ImageContent,
+                    BookName = x.Book.BookCover.BookName,
+                    AuthorName = x.Book.Author.Name,
+                    BookId = x.BookId,
+                    AuthorId = x.Book.AuthorId,
+                    LibraryId = x.Id
+                })
+                .OrderByDescending(x => x.LibraryId)
                 .Take(5)
                 .AsNoTracking()
                 .ToListAsync();

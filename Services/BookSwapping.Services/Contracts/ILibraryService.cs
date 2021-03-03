@@ -1,7 +1,6 @@
 ﻿namespace BookSwapping.Services.Contracts
 {
     using BookSwapping.Data.Models;
-    using BookSwapping.Models.ViewModels.Home;
     using BookSwapping.Models.ViewModels.Library;
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -12,6 +11,6 @@
         Task<bool> IsBookShared(int id);
         Task<IEnumerable<GetAllBooksFromLibraryViewModel>> GetAllBooksFromLibrary();
         Task<int> CountOfBooksInLibrary();
-        Task<ICollection<Library>> LastReceivedBooksToLibrary();
+        Task<IEnumerable<LastReceivedBooksToLibraryViewModel>> LastReceivedBooksToLibrary();
     }
 }
