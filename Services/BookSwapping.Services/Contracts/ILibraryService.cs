@@ -10,7 +10,7 @@
         Task UnShareBookFromLibrary(int id);
         Task<bool> IsBookShared(int id);
         Task<ICollection<Library>> GetAllBookFromLibrary();
-        int CountOfBooksInLibrary();
+        Task<int> CountOfBooksInLibrary();
         Task<ICollection<Library>> LastReceivedBooksToLibrary();
     }
 }

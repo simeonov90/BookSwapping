@@ -18,9 +18,9 @@
             this.db = db;
         }
 
-        public int CountOfBooksInLibrary()
+        public async Task<int> CountOfBooksInLibrary()
         {
-            return db.Libraries.ToList().Count();
+            return await db.Libraries.CountAsync();
         }
 
         public async Task UnShareBookFromLibrary(int id)
