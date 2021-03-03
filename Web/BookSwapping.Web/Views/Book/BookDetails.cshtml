@@ -1,7 +1,7 @@
 ﻿@using BookSwapping.Services.Contracts
 @using BookSwapping.Web.Infrastructure.Claims
 @inject IRequestedBookService RequestedBookService
-@model ICollection<BookSwapping.Data.Models.Book>
+@model IEnumerable<BookSwapping.Models.ViewModels.Book.BookDetailsViewModel>
 @{
     ViewData["Title"] = "Book Details";
 }
@@ -10,36 +10,36 @@
     @foreach (var b in Model)
     {
 
-        var img = String.Format("data:image/png;base64,{0}", Convert.ToBase64String(b.BookCover.ImageContent));
+        var img = String.Format("data:image/png;base64,{0}", Convert.ToBase64String(b.ImageContent));
 
         <div class="card-header">
             <div class="row">
                 <div class="col-auto">
-                    <img src=@img class="img-fluid img-thumbnail" alt="@b.BookCover.BookName" style="width: 250px;">
+                    <img src=@img class="img-fluid img-thumbnail" alt="@b.BookName" style="width: 250px;">
                 </div>
                 <div class="col">
                     <div class="card-body">
-                        <h2 class="card-title">@b.BookCover.BookName</h2>
-                        <h6 class="card-subtitle mt-2">Автор: <a asp-action="Author" asp-controller="Author" asp-route-id="@b.AuthorId" asp-route-name="@b.Author.Name" class="text-primary text-decoration-none">@b.Author.Name</a></h6>
-                        <h6 class="card-subtitle mt-2">Жанр: <a asp-action="GetAllBooksFromGenre" asp-controller="Genre" asp-route-genre="@b.Genre.TypeGenre" class="text-primary text-decoration-none">@b.Genre.TypeGenre</a></h6>
-                        <h6 class="card-subtitle mt-2">Каченa от: @b.User.UserName</h6>
-                        <h6 class="card-text mt-4">@b.BookCover.Description</h6>
+                        <h2 class="card-title">@b.BookName</h2>
+                        <h6 class="card-subtitle mt-2">Автор: <a asp-action="Author" asp-controller="Author" asp-route-id="@b.AuthorId" asp-route-name="@b.AuthorName" class="text-primary text-decoration-none">@b.AuthorName</a></h6>
+                        <h6 class="card-subtitle mt-2">Жанр: <a asp-action="GetAllBooksFromGenre" asp-controller="Genre" asp-route-genre="@b.TypeGenre" class="text-primary text-decoration-none">@b.TypeGenre</a></h6>
+                        <h6 class="card-subtitle mt-2">Каченa от: @b.UploadBy</h6>
+                        <h6 class="card-text mt-4">@b.Description</h6>
                     </div>
                 </div>
             </div>
 
-            @if (!await RequestedBookService.ItsMineBook(this.User.GetUserId(), b.Id))
+            @if (!await RequestedBookService.ItsMineBook(this.User.GetUserId(), b.BookId))
             {
-                @if (await RequestedBookService.DidIWantThisBook(this.User.GetUserId(), b.Id))
+                @if (await RequestedBookService.DidIWantThisBook(this.User.GetUserId(), b.BookId))
                 {
-                    <a asp-action="RejectTheRequest" asp-controller="RequestedBook" asp-route-bookId="@b.Id"
+                    <a asp-action="RejectTheRequest" asp-controller="RequestedBook" asp-route-bookId="@b.BookId"
                        type="button" class="btn btn-danger">
                         Отказ от искането
                     </a>
                 }
                 else
                 {
-                    <a asp-action="RequestThisBook" asp-controller="RequestedBook" asp-route-userId="@b.UserId" asp-route-bookId="@b.Id"
+                    <a asp-action="RequestThisBook" asp-controller="RequestedBook" asp-route-bookId="@b.BookId"
                        type="button" class="btn btn-success">
                         Искам тази книга
                     </a>

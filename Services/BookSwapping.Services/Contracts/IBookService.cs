@@ -10,7 +10,7 @@
     {
         Task CreateBook(CreateBookInputModel create, string userId);
         Task<AboutBookViewModel> AboutBook(int bookId);
-        Task<ICollection<Book>> BookDetails(int id);
+        Task<IEnumerable<BookDetailsViewModel>> BookDetails(int id);
         Task<EditBookInputViewModel> GetBookForEdit(int id);
         Task UpdateEditBook(int bookId, EditBookInputViewModel edit);
         Task<bool> UserBookExist(int bookId, string userId);

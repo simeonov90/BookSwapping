@@ -82,13 +82,20 @@
             
             return book;
         }
-        public async Task<ICollection<Book>> BookDetails(int id)
+        public async Task<IEnumerable<BookDetailsViewModel>> BookDetails(int id)
         {
             var book = await db.Books.Where(x => x.Id == id)
-            .Include(x => x.BookCover)
-            .Include(x => x.Author)
-            .Include(x => x.Genre)
-            .Include(x => x.User)
+            .Select(x => new BookDetailsViewModel
+            {
+                ImageContent = x.BookCover.ImageContent,
+                BookName = x.BookCover.BookName,               
+                Description = x.BookCover.Description,
+                AuthorName = x.Author.Name,                
+                TypeGenre = x.Genre.TypeGenre,
+                UploadBy = x.User.UserName,
+                BookId = x.Id,
+                AuthorId = x.AuthorId,
+            })
             .AsNoTracking()
             .ToListAsync();
 

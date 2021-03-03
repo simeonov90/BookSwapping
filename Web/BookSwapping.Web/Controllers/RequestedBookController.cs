@@ -34,6 +34,7 @@
             {
                 return BadRequest();
             }
+
             await this.requestedBookService.RequestThisBook(this.User.GetUserId(), bookId);
 
             return RedirectToAction("Index", "Home");
