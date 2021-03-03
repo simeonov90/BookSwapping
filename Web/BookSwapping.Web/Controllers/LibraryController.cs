@@ -18,7 +18,7 @@
         [Route("{controller}")]
         public async Task<IActionResult> AllBookInLibrary()
         {           
-            return View(await this.libraryService.GetAllBookFromLibrary());
+            return View(await this.libraryService.GetAllBooksFromLibrary());
         }
     }
 }

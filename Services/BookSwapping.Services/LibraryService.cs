@@ -2,6 +2,7 @@
 {
     using BookSwapping.Data;
     using BookSwapping.Data.Models;
+    using BookSwapping.Models.ViewModels.Library;
     using BookSwapping.Services.Contracts;
     using Microsoft.EntityFrameworkCore;
     using System;
@@ -30,15 +31,21 @@
                 await this.db.SaveChangesAsync();          
         }
 
-        public async Task<ICollection<Library>> GetAllBookFromLibrary()
+        public async Task<IEnumerable<GetAllBooksFromLibraryViewModel>> GetAllBooksFromLibrary()
         {
 
-            var getAllBookFromLibrary =
-                db.Libraries
-                .Include(x => x.Book).ThenInclude(c => c.BookCover)
-                .Include(x => x.Book).ThenInclude(c => c.Author)
-                .Include(x => x.Book).ThenInclude(c => c.Genre)
-                .Include(x => x.Book).ThenInclude(c => c.User)
+            var getAllBookFromLibrary = db.Libraries
+                .Select(x => new GetAllBooksFromLibraryViewModel
+                {
+                    ImageContent = x.Book.BookCover.ImageContent,
+                    BookName = x.Book.BookCover.BookName,
+                    AuthorName = x.Book.Author.Name,
+                    Genre = x.Book.Genre.TypeGenre,
+                    DateTime = x.Date,
+                    UploadBy = x.Book.User.UserName,
+                    BookId = x.BookId,
+                    AuthorId = x.Book.AuthorId
+                })
                 .AsNoTracking()
                 .ToListAsync();
 
