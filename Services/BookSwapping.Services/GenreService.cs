@@ -2,6 +2,7 @@
 {
     using BookSwapping.Data;
     using BookSwapping.Data.Models;
+    using BookSwapping.Models.ViewModels.Genre;
     using BookSwapping.Services.Contracts;
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
@@ -17,12 +18,17 @@
             this.db = db;
         }
 
-        public async Task<ICollection<Book>> GetAllBooksFromGenre(string genre)
+        public async Task<IEnumerable<GetAllBooksFromGenreViewModel>> GetAllBooksFromGenre(string genre)
         {
             var booksFromGenre = await this.db.Books.Where(x => x.Genre.TypeGenre == genre)
-                .Include(x => x.Author)
-                .Include(x => x.BookCover)
-                .Include(x => x.Genre)
+                .Select(x => new GetAllBooksFromGenreViewModel
+                {
+                    Author = x.Author.Name,
+                    AuthorId = x.AuthorId,
+                    BookName = x.BookCover.BookName,
+                    BookId = x.BookCoverId,
+                    ImageContent = x.BookCover.ImageContent
+                })
                 .AsNoTracking()
                 .ToListAsync();
 
