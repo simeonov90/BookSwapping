@@ -71,14 +71,14 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> BookDetails(int id)
+        public async Task<IActionResult> BookDetails(int bookId)
         {
-            if (await this.libraryService.IsBookShared(id) == false)
+            if (await this.libraryService.IsBookShared(bookId) == false)
             {
                 return NotFound();
             }
 
-            return View(await this.bookService.BookDetails(id));
+            return View(await this.bookService.BookDetails(bookId));
         }
 
         public async Task<IActionResult> ShareBookToLibrary(int id)

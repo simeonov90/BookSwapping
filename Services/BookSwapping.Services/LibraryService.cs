@@ -31,6 +31,20 @@
                 await this.db.SaveChangesAsync();          
         }
 
+        public async Task<IEnumerable<GetAllSharedBooksFromUserViewModel>> GetAllSharedBooksFromUser(string username) 
+        {
+            var book = await this.db.Libraries.Where(x => x.Book.User.UserName == username)
+                .Select(x => new GetAllSharedBooksFromUserViewModel
+                {
+                    ImageContent = x.Book.BookCover.ImageContent,
+                    BookName = x.Book.BookCover.BookName,
+                    BookId = x.BookId,
+                })
+                .AsNoTracking()
+                .ToListAsync();
+
+                return book;
+        }
         public async Task<IEnumerable<GetAllBooksFromLibraryViewModel>> GetAllBooksFromLibrary()
         {
 
@@ -92,6 +106,12 @@
         {
             var isExist = await db.Libraries.AnyAsync(x => x.BookId == id);
             return isExist;
+        }
+        public async Task<bool> DoesTheUserHaveBooksToDisplay(string username)
+        {
+            var bookToDisplay = await this.db.Libraries.AnyAsync(x => x.Book.User.UserName == username);
+
+            return bookToDisplay;
         }
     }
 }

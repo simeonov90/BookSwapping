@@ -1,6 +1,6 @@
 ﻿@using BookSwapping.Services.Contracts
 @model BookSwapping.Models.ViewModels.Book.AboutBookViewModel
-@inject IRequestedBookService RequestedBookService 
+@inject IRequestedBookService RequestedBookService
 @{
     ViewData["Title"] = "AboutBook";
 }
@@ -27,22 +27,31 @@
                 <h6 class="card-subtitle mt-2">Жанр: @Model.Genre</h6>
                 <h6 class="card-text mt-4">@Model.Description</h6>
             </div>
-
         </div>
-
     </div>
+
     <div>
         <h5>Хора искащи книгата</h5>
         @{
             var users = await this.RequestedBookService.ListWithUsers(Model.BookId);
-        }
 
-        @foreach (var usr in users)
-        {
-            <div class="d-inline-block btn btn-outline-info">
-                @usr
-            </div>
+            foreach (var usr in users)
+            {
+                <div class="dropdown d-inline-block">
+                    <button class="btn btn-outline-info dropdown-toggle"
+                            type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false">
+                        @usr
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" asp-action="UserBook" asp-controller="Library" asp-route-username="@usr">Книги на @usr</a>
+                        <a class="dropdown-item" href="#">Изпрати съобщение</a>
+                    </div>
+                </div>
+            }
         }
     </div>
-    
+
 </div> 

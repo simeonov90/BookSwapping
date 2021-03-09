@@ -64,9 +64,6 @@
         public async Task<AboutBookViewModel> AboutBook(int bookId)
         {
             var book = await db.Books.Where(c => c.Id == bookId)
-                .Include(c => c.BookCover)
-                .Include(c => c.Author)
-                .Include(c => c.Genre)
                 .Select(c => new AboutBookViewModel
                 {
                     ImageContent = c.BookCover.ImageContent,
@@ -78,8 +75,7 @@
                     BookCoverId = c.BookCoverId
                 })
                 .FirstAsync();
-                
-            
+                           
             return book;
         }
         public async Task<IEnumerable<BookDetailsViewModel>> BookDetails(int id)
