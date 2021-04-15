@@ -5,6 +5,7 @@
     using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
 
+
     [Authorize]
     public class LibraryController : Controller
     {
@@ -14,11 +15,16 @@
         {
             this.libraryService = libraryService;
         }
-
-        [Route("{controller}")]
-        public async Task<IActionResult> AllBookInLibrary()
+        
+        public async Task<IActionResult> Library()
         {
             return View(await this.libraryService.GetAllBooksFromLibrary());
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AllBookInLibraryData()
+        {
+            return this.Json(await this.libraryService.GetAllBooksFromLibrary());
         }
 
         [HttpGet("{username}")]

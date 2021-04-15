@@ -51,9 +51,9 @@ namespace BookSwapping.Web
             //});
             services.AddControllersWithViews(configure =>
             {
-                configure.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-            });     
-            
+                configure.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());               
+            });
+
             services.AddTransient<IAuthorService, AuthorService>();
             services.AddTransient<IBookCoverService, BookCoverService>();
             services.AddTransient<IGenreService, GenreService>();
@@ -86,7 +86,7 @@ namespace BookSwapping.Web
             app.UseRouting();
             
             app.UseAuthentication();
-            app.UseAuthorization();
+            app.UseAuthorization();           
 
             app.UseEndpoints(endpoints =>
             {

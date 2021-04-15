@@ -28,7 +28,7 @@
                     <figcaption class="figure-caption text-center">@Model.ElementAt(i).BookName</figcaption>
                     <a asp-action="AboutBook"
                        asp-controller="Book"
-                       asp-route-bookId="@Model.ElementAt(i).BookId" type="button" class="btn btn-info btn-sm"><i class="fa fa-info-circle"></i> За книгата </a>
+                       asp-route-id="@Model.ElementAt(i).BookId" type="button" class="btn btn-info btn-sm"><i class="fa fa-info-circle"></i> За книгата </a>
                     @{
                         if (await LibraryService.IsBookShared(@Model.ElementAt(i).BookId) == true)
                         {

@@ -78,9 +78,9 @@
                            
             return book;
         }
-        public async Task<IEnumerable<BookDetailsViewModel>> BookDetails(int bookId)
+        public async Task<IEnumerable<BookDetailsViewModel>> BookDetails(int id)
         {
-            var book = await db.Books.Where(x => x.Id == bookId)
+            var book = await db.Books.Where(x => x.Id == id)
             .Select(x => new BookDetailsViewModel
             {
                 ImageContent = x.BookCover.ImageContent,

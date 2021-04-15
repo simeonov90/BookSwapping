@@ -37,14 +37,14 @@
         }
 
         
-        public async Task<IActionResult> AboutBook(int bookId)
+        public async Task<IActionResult> AboutBook(int id)
         {
-            if (!await this.bookService.UserBookExist(bookId, this.User.GetUserId()))
+            if (!await this.bookService.UserBookExist(id, this.User.GetUserId()))
             {
                return NotFound();
             }
 
-            return View(await this.bookService.AboutBook(bookId));
+            return View(await this.bookService.AboutBook(id));
         }
 
         public async Task<IActionResult> CreateBook()
@@ -71,14 +71,14 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> BookDetails(int bookId)
+        public async Task<IActionResult> BookDetails(int id)
         {
-            if (await this.libraryService.IsBookShared(bookId) == false)
+            if (await this.libraryService.IsBookShared(id) == false)
             {
                 return NotFound();
             }
 
-            return View(await this.bookService.BookDetails(bookId));
+            return View(await this.bookService.BookDetails(id));
         }
 
         public async Task<IActionResult> ShareBookToLibrary(int id)
