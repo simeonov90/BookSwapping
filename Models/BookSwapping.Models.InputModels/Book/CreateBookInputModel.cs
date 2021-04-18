@@ -1,9 +1,7 @@
 ﻿namespace BookSwapping.Models.InputModels.Book
 {
     using BookSwapping.Common;
-    using BookSwapping.Data.Models;
     using Microsoft.AspNetCore.Http;
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 

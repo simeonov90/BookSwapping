@@ -9,7 +9,5 @@
         public string Genre { get; set; }
         public int BookId { get; set; }
         public int BookCoverId { get; set; }
-
-
     }
 }
